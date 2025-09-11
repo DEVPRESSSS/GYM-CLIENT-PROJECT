@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GYM_CLIENT.View.Admin.Forms;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,19 @@ namespace GYM_CLIENT.View.Admin
         public Staff()
         {
             InitializeComponent();
+        }
+
+        private void StaffBtn_Click(object sender, RoutedEventArgs e)
+        {
+            AddStaff addStaff = new AddStaff();
+            addStaff.ShowDialog();
+            
+        }
+
+        private void editBtn_Click(object sender, RoutedEventArgs e)
+        {
+            UpdateStaff addStaff = new UpdateStaff();
+            addStaff.ShowDialog();
         }
     }
 }

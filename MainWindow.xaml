@@ -3,10 +3,318 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:GYM_CLIENT"
+        xmlns:local="clr-namespace:GYM_CLIENT" xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="MainWindow" 
+        Height="600" 
+        Width="1000"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        MouseDown="Window_MouseDown"
+        ResizeMode="NoResize"
+        >
+    <!--This is for the border of the window-->
+    <Border CornerRadius="0" Background="Transparent">
 
-    </Grid>
+        <!--This is for the border radius or corner radius of the window-->
+
+        <Border CornerRadius="0"
+             BorderThickness="1">
+
+
+
+            <Border.Background>
+                <SolidColorBrush Color="#F4F5F6"/>
+
+            </Border.Background>
+
+            <Grid>
+
+                <Grid.RowDefinitions>
+
+                    <RowDefinition Height="30"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+
+                <Border Grid.Row="0"
+                        Background="#313638"
+                        Margin="-1,-1,-1,0"
+                      >
+
+
+
+                </Border>
+                <Grid Grid.Row="1">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="190"/>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="5*"/>
+                    </Grid.ColumnDefinitions>
+
+
+
+
+
+
+                    <!-- Sidebar -->
+
+
+                    <Border Grid.Column="0"
+                            Background="#F4F5F6"
+                            BorderThickness="0,0,0.5,0"
+                            Padding="10" 
+                            BorderBrush="Gray"
+                            Margin="-2,0,2,0">
+
+                        <!--The panel that holds the buttons-->
+                        <StackPanel>
+
+                            <!--The border for the profile -->
+
+                            <!--Buttons in the sidebar-->
+
+
+
+                            <!--Dashboard-->
+                            <Image Source="D:\GYMMANAGEMENTSYSTEM\Resources\Images\logobg.png" 
+                                   Width="60"
+                                   Height="60"
+                                   Margin="0,5,0,0"/>
+
+                            <!--Dashboard-->
+                            <Button x:Name="Dashboard" Style="{StaticResource menuButton}"  
+                                    Margin="0,20,0,5"
+                                    Cursor="Hand" Width="160"
+                                    Click="Dashboard_Click">
+                                <StackPanel Orientation="Horizontal">
+                                    <Icon:PackIconMaterial Kind="Menu" Style="{StaticResource menuButtonIcon}"/>
+                                    <TextBlock Text="Dashboard"  FontFamily="Roboto"/>
+                                </StackPanel>
+                            </Button>
+
+                            <!--Employee-->
+
+                            <Button x:Name="Employee" Style="{StaticResource menuButton}"  Margin="5"
+                                 Cursor="Hand" 
+                                 Width="160"
+                                 Click="Employee_Click">
+                                <StackPanel Orientation="Horizontal">
+                                    <Icon:PackIconMaterial Kind="AccountMultipleOutline" Style="{StaticResource menuButtonIcon}"/>
+                                    <TextBlock Text="Employee" FontFamily="Roboto"/>
+                                </StackPanel>
+                            </Button>
+
+                            <!--Members-->
+
+                            <Button x:Name="Clients" Style="{StaticResource menuButton}"  Margin="5"
+                                Cursor="Hand"
+                                Width="160"
+                                Click="Clients_Click">
+                                <StackPanel Orientation="Horizontal">
+                                    <Icon:PackIconMaterial Kind="Gymnastics" Style="{StaticResource menuButtonIcon}"/>
+                                    <TextBlock Text="Clients" FontFamily="Roboto"/>
+                                </StackPanel>
+                            </Button>
+
+
+
+                            <!--Attendance-->
+
+                            <Button x:Name="Attendance" Style="{StaticResource menuButton}"  Margin="5"
+                                    Cursor="Hand" 
+                                    Width="160" 
+                                    Click="Attendance_Click"
+                                    >
+                                <StackPanel Orientation="Horizontal">
+                                    <Icon:PackIconMaterial Kind="ListBoxOutline" Style="{StaticResource menuButtonIcon}"/>
+                                    <TextBlock Text="Attendance"  FontFamily="Roboto"/>
+                                </StackPanel>
+                            </Button>
+
+                            <!--Payments-->
+
+
+                            <Button x:Name="Payments" Style="{StaticResource menuButton}"  Margin="5"
+                                 Cursor="Hand"
+                                    Width="160"
+                                    Click="Payments_Click">
+                                <StackPanel Orientation="Horizontal">
+                                    <Icon:PackIconMaterial Kind="CashCheck" Style="{StaticResource menuButtonIcon}"/>
+                                    <TextBlock Text="Payment"  FontFamily="Roboto"/>
+                                </StackPanel>
+                            </Button>
+
+
+                            <!--Equipements-->
+                            <Button x:Name="Equipments" Style="{StaticResource menuButton}"  Margin="5"
+                                     Cursor="Hand"
+                                     Width="160"
+                                      Click="Equipments_Click">
+                                <StackPanel Orientation="Horizontal">
+                                    <Icon:PackIconMaterial Kind="Dumbbell" Style="{StaticResource menuButtonIcon}"/>
+                                    <TextBlock Text="Equipments"  FontFamily="Roboto"/>
+                                </StackPanel>
+                            </Button>
+
+
+
+                            <Button x:Name="Settings" Style="{StaticResource menuButton}"  Margin="5"
+                               Cursor="Hand" 
+                               Width="160"
+                               Click="Settings_Click">
+                                <StackPanel Orientation="Horizontal">
+                                    <Icon:PackIconMaterial Kind="Cog" Style="{StaticResource menuButtonIcon}"/>
+                                    <TextBlock Text="Settings"  FontFamily="Roboto"/>
+                                </StackPanel>
+                            </Button>
+
+
+
+
+
+                            <!--Logout-->
+
+
+
+                        </StackPanel>
+                    </Border>
+
+
+
+
+                    <!-- Main Content Area -->
+                    <Border Grid.Column="1"
+                            Background="White"
+                            Margin="10,10,10,10"
+                            CornerRadius="10" Grid.ColumnSpan="2">
+
+
+                        <!--Name of the MainContentArea where the user control will appear-->
+                        <ContentControl x:Name="MainContentArea">
+
+
+
+                        </ContentControl>
+
+                    </Border>
+
+                </Grid>
+
+
+
+                <!--This is for header row which in the row 0-->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+
+
+                        <!--Column for the logo picture-->
+                        <ColumnDefinition/>
+                        <!--Column for Minimize-->
+                        <ColumnDefinition Width="35"/>
+                        <!--Column for maximize-->
+                        <ColumnDefinition Width="35"/>
+                        <!--Column for Close-->
+
+                        <ColumnDefinition Width="35"/>
+
+
+
+                    </Grid.ColumnDefinitions>
+
+
+                    <!--Logo picture -->
+
+
+                    <!--Button minimize -->
+
+                    <Button x:Name="Minimize" 
+                            Grid.Column="1" 
+                            Click="Minimize_Click_1"
+                            Background="#ff0000"
+                            Style="{StaticResource MinimizeButtonStyle}"
+ >
+
+                        <Icon:PackIconMaterial 
+                             x:Name="MinimizeWindow"
+                             Kind="Minus" 
+                             Grid.Column="1"
+                             Height="10" RenderTransformOrigin="0.803,0.533"
+                             Width="12"
+                             Foreground="White"
+                             Style="{StaticResource WindowControlIcon}"
+                             Cursor="Hand"
+                         />
+
+                    </Button>
+
+
+
+
+
+                    <!--Button btnMaximize -->
+
+                    <Button x:Name="Maximize"
+                            Grid.Column="2" 
+                            Click="Maximize_Click"
+                            Cursor="Hand"
+                            Background="#eba434"
+                            Style="{StaticResource MinimizeButtonStyle}"
+>
+
+                        <Icon:PackIconMaterial 
+                            x:Name="MaximizeWindow"
+                            Kind="WindowMaximize" 
+                            Grid.Column="2"
+                            Height="10" RenderTransformOrigin="0.803,0.533"
+                            Width="12"
+                            Foreground="White"
+                             Style="{StaticResource WindowControlIcon}"
+                            Cursor="Hand"
+                        />
+
+                    </Button>
+
+
+
+
+
+                    <!--Button btnClose -->
+
+                    <Button x:Name="Close" 
+                            Grid.Column="3" 
+                            Cursor="Hand"
+                            Click="Close_Click"
+                            Background="#0b8707"
+                           Style="{StaticResource MinimizeButtonStyle}"
+>
+
+                        <Icon:PackIconMaterial 
+                            x:Name="CloseWindow"
+                            Kind="WindowClose" 
+                            Grid.Column="3"
+                            Height="10" RenderTransformOrigin="0.803,0.533"
+                            Width="12"
+                            Foreground="White"
+                             Style="{StaticResource WindowControlIcon}"
+                            Cursor="Hand"
+                        />
+
+                    </Button>
+
+
+
+
+                </Grid>
+
+
+            </Grid>
+
+
+
+
+
+        </Border>
+    </Border>
 </Window>

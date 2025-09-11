@@ -23,5 +23,10 @@ namespace GYM_CLIENT.Auth
         {
             InitializeComponent();
         }
+
+        private void PackIconMaterial_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
     }
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using GYM_CLIENT.Model;
+using GYM_CLIENT.View.Admin.Forms;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +25,20 @@ namespace GYM_CLIENT.View.Admin
         public Client()
         {
             InitializeComponent();
+        }
+
+        private void NewClientButton_Click(object sender, RoutedEventArgs e)
+        {
+
+            AddClient client = new AddClient();
+            client.ShowDialog();  
+
+        }
+
+        private void editBtn_Click(object sender, RoutedEventArgs e)
+        {
+            UpdateClient client = new UpdateClient();
+            client.ShowDialog();
         }
     }
 }

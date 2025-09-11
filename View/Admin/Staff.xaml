@@ -3,10 +3,139 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:GYM_CLIENT.View.Admin"
+             xmlns:local="clr-namespace:GYM_CLIENT.View.Admin" xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
-    </Grid>
+    
+    <Border x:Name="PageBorder" Background="White"
+            >
+
+
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition/>
+
+            </Grid.RowDefinitions>
+
+            <Border
+             Background="#F4F5F6"
+             BorderThickness="0,0,0,1"
+             Grid.Row="0">
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <!-- Left-aligned -->
+                        <ColumnDefinition Width="Auto" />
+                        <!-- Right-aligned -->
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Left-aligned Export Button -->
+                    <Button x:Name="ExportBtn"
+                     Style="{StaticResource CrudButton}"
+                     BorderBrush="Gray"
+                     Cursor="Hand"
+                     BorderThickness="0.5"
+                     Margin="10,0,0,0"
+                     Width="41"
+                     Grid.Column="0"
+                     HorizontalAlignment="Left">
+                        <Icon:PackIconMaterial 
+                     x:Name="MaximizeWindow"
+                     Kind="Printer" 
+                     Height="10" 
+                     Width="12"
+                     Foreground="#313638"
+                     Style="{StaticResource WindowControlIcon}"
+                     Cursor="Hand" />
+                    </Button>
+
+                    <!-- Right-aligned New Button -->
+                    <Button x:Name="StaffBtn"
+                         Style="{StaticResource CrudButton}"
+                         Cursor="Hand"
+                         Margin="0,0,10,0"
+                         Width="60"
+                         BorderThickness="0"
+                         Background="#0b8707"
+                         Grid.Column="1"
+                         HorizontalAlignment="Right"
+                         Click="StaffBtn_Click">
+
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <TextBlock Text="Add" 
+                                VerticalAlignment="Center"
+                                Margin="0,0,5,0"
+                                 Foreground="White"
+                                />
+                            <Icon:PackIconMaterial 
+                             x:Name="IconAdd"
+                             Kind="Plus" 
+                             Height="10"
+                             Width="10"
+                             Margin="0"
+                             Foreground="White"
+                             Style="{StaticResource WindowControlIcon}" />
+                        </StackPanel>
+                    </Button>
+
+                </Grid>
+            </Border>
+
+
+            <Border Grid.Row="1">
+                <!--Employee Table-->
+
+                <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}" 
+                       ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
+                       CellStyle="{DynamicResource DataGridCellStyle1}" 
+                       x:Name="cashierDataGrid" Style="{DynamicResource DataGridStyle1}"
+                       ItemsSource="{Binding AppUsersCollection}"
+                       SelectedItem="{Binding SelectedAppUser}"
+                       AutoGenerateColumns="False">
+
+                    <DataGrid.Columns>
+                        <!--<DataGridTemplateColumn Header="Professor" CanUserResize="False" IsReadOnly="True" Width="*">
+                             <DataGridTemplateColumn.CellTemplate>
+                                 <DataTemplate>
+                                     <StackPanel Orientation="Horizontal">
+                                         <Border Width="25" Height="25" CornerRadius="50" Margin="0 0 10 0" Background="{Binding bgColor}">
+                                             <TextBlock Text="{Binding Character }" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Margin="0 0 0 1"/>
+                                         </Border>
+
+                                     </StackPanel>
+                                 </DataTemplate>
+                             </DataGridTemplateColumn.CellTemplate>
+                         </DataGridTemplateColumn>-->
+                        <DataGridTextColumn Header="Firstname" CanUserResize="False"  Binding="{Binding FirstName}" IsReadOnly="True" Width="*"/>
+                        <DataGridTextColumn Header="Lastname" CanUserResize="False"  Binding="{Binding LastName}" IsReadOnly="True" Width="*"/>
+                        <DataGridTextColumn Header="Username" CanUserResize="False"  Binding="{Binding Username}" IsReadOnly="True" Width="*"/>
+                        <DataGridTextColumn Header="Gmail" CanUserResize="False"  Binding="{Binding Gmail}" IsReadOnly="True" Width="*"/>
+                        <DataGridTextColumn Header="Role" CanUserResize="False" Binding="{Binding Roles.RoleName, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Width="*"/>
+
+                        <DataGridTemplateColumn Header="Action" CanUserResize="False" IsReadOnly="True" Width="*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button x:Name="editBtn" Style="{StaticResource gridEditButton}" Click="editBtn_Click" >
+                                            <Icon:PackIconMaterial Kind="PencilOutline" Style="{StaticResource gridButtonIcon}"/>
+                                        </Button>
+                                        <Button Margin="5 0 0 0" Style="{StaticResource gridRemoveButton}"
+                                             Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext.DeleteCommand}">
+                                            <Icon:PackIconMaterial Kind="DeleteOutline" Style="{StaticResource gridButtonIcon}"/>
+                                        </Button>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+            </Border>
+        </Grid>
+
+
+    </Border>
 </UserControl>

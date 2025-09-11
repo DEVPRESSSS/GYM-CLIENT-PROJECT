@@ -23,5 +23,27 @@ namespace GYM_CLIENT.Auth
         {
             InitializeComponent();
         }
+
+        private void PackIconMaterial_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Login login = new Login();
+            login.Show();
+            this.Close();
+        }
+
+        private void SendOTP_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+          
+        }
+
+        private void Window_MouseDown_1(object sender, MouseButtonEventArgs e)
+        {
+
+        }
     }
 }

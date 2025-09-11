@@ -3,10 +3,279 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:GYM_CLIENT.Auth"
+        xmlns:local="clr-namespace:GYM_CLIENT.Auth" xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
-        Title="Login" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="Login" 
+        Height="457" 
+        Width="705"  
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        Background="Transparent"
+        AllowsTransparency="True"
+        ResizeMode="NoResize"
+        MouseDown="Window_MouseDown">
+    <!--First border-->
+    <Border  Background="Transparent">
+
+
+        <!--Secod border-->
+        <Border Background="#F4F5F6" BorderThickness="3" >
+
+
+
+
+            <Grid>
+
+                <Grid.RowDefinitions>
+
+
+
+                    <!--First row that holds the min,max,close button (columns)-->
+
+
+                    <!--Second row-->
+                    <RowDefinition/>
+
+                </Grid.RowDefinitions>
+
+
+
+
+                <!--Grid for second row-->
+                <Grid Grid.Row="0">
+
+                    <!--Grid for column definition-->
+                    <Grid.ColumnDefinitions>
+
+                        <!--First column-->
+                        <ColumnDefinition />
+
+                        <!--Second column-->
+                        <ColumnDefinition/>
+
+                    </Grid.ColumnDefinitions>
+
+
+                    <!--Grid for the column 1-->
+                    <Grid Grid.Row="0" Grid.Column="1">
+
+
+
+                        <Grid.RowDefinitions>
+
+                            <!--Row that holds the the three columns-->
+                            <RowDefinition Height="30"/>
+                            <RowDefinition/>
+
+                        </Grid.RowDefinitions>
+
+                        <!--Border for the row 1-->
+                        <Border BorderBrush="Black" 
+                             Grid.Row="0"
+                             >
+
+                        </Border>
+
+
+                        <Grid>
+
+
+                            <Grid.ColumnDefinitions>
+
+
+                                <!--Minimize button column-->
+                                <ColumnDefinition/>
+
+                                <!--Maximize button column-->
+                                <ColumnDefinition/>
+
+                                <!--Close button column-->
+                                <ColumnDefinition/>
+
+                            </Grid.ColumnDefinitions>
+
+
+
+
+                            <Button x:Name="CloseBtn"
+                                 Style="{StaticResource MinimizeButtonStyle}"
+                                 Grid.Column="2"
+                                 HorizontalAlignment="Right"
+                                 Margin="0,0,4,0"
+                                 Cursor="Hand"
+                                 Click="CloseBtn_Click">
+
+
+                                <Icon:PackIconMaterial 
+                                  Kind="Close" 
+                                  VerticalAlignment="Center"
+                                  Height="10"
+                                  HorizontalAlignment="Right"
+                                  Width="16"
+                              />
+
+                            </Button>
+
+
+
+                        </Grid>
+
+                        <!--Logo -->
+                        <Image Grid.Row="1"
+                            Source="D:\GYMMANAGEMENTSYSTEM\Resources\Images\logobg.png"
+                            Width="100"
+                            Height="100" RenderTransformOrigin="0.515,0.068" Margin="125,9,124,312"/>
+
+
+
+                    </Grid>
+
+
+
+                    <!--Image for the first column of row 2-->
+                    <Image Grid.Row="1"
+                    Grid.Column="0"
+                    HorizontalAlignment="Left" Stretch="Fill"
+                    Source="D:\GYMMANAGEMENTSYSTEM\Resources\Images\cbum.png"/>
+
+
+                    <TextBlock Grid.Column="1"
+                            Text="Welcome" 
+                            Height="20"
+                            Margin="150,142,144,289"
+                            FontWeight="DemiBold"/>
+
+                    <!--Username textbox-->
+
+                    <TextBox x:Name="Usernametxt" 
+                          Grid.Column="1"
+                          Style="{StaticResource TextBoxes}" 
+                          Margin="80,213,73,213"
+                          MaxLength="30"
+                          BorderBrush="#727272" 
+                          TextChanged="Usernametxt_TextChanged"                               
+                          />
+
+                    <!--Error message textblock in username-->
+
+                    <TextBlock x:Name="UsernameErrorMessage"
+                      Grid.Column="1"
+                      Width="100"
+                      Margin="134,239,115,200"
+                      Foreground="Red"
+                      FontSize="8"
+                       />
+
+                    <!-- Icon in username -->
+
+                    <Icon:PackIconMaterial Kind="Account" Margin="60,222,0,0" Grid.Column="1"/>
+
+
+                    <!--Passwordbox-->
+
+
+                    <PasswordBox x:Name="Passwordtxt" Grid.Column="1" 
+                              Style="{StaticResource PasswordBoxes}" 
+                              Margin="80,265,73,161"
+                              MaxLength="24"
+                              BorderBrush="#727272" 
+                              PasswordChanged="Passwordtxt_PasswordChanged"
+                              />
+
+                    <!--Error message textblock in password-->
+
+                    <TextBlock x:Name="PasswordErrorMessage"
+                      Grid.Column="1"
+                      Margin="134,291,115,148"
+                      Foreground="Red"
+                      FontSize="8"
+                       />
+
+
+
+                    <!--Password textbox-->
+
+                    <TextBox x:Name="PasswordUnmask" 
+                   Grid.Column="1"
+                   Style="{StaticResource TextBoxes}" 
+                   Margin="80,265,73,161"
+                   MaxLength="30"
+                   Visibility="Collapsed"
+                   BorderBrush="#727272" 
+                          TextChanged="PasswordUnmask_TextChanged"
+
+                   />
+
+                    <!-- Icon in username -->
+
+                    <Icon:PackIconMaterial Kind="Lock" Margin="60,274,0,0" Grid.Column="1"/>
+
+                    <Icon:PackIconMaterial x:Name="Eye" Kind="Eye" Margin="260,274,0,0" Grid.Column="1" 
+                                        RenderTransformOrigin="4,1.875"
+                                        Height="8" 
+                                        Width="16"
+                                        MouseDown="Eye_MouseDown"
+                                        Visibility="Hidden"
+                                         
+                                        />
+
+
+
+                    <Icon:PackIconMaterial x:Name="Eye2" Kind="EyeOff" Margin="258,274,0,0" Grid.Column="1" 
+                        RenderTransformOrigin="4,1.875"
+                        Height="10" 
+                        Width="18"
+                        MouseDown="Eye2_MouseDown"
+                        Visibility="Collapsed"
+                        />
+
+                    <Label x:Name="forgotpassword" 
+                        Content="forgot password"
+                        FontSize="9"
+                        FontStyle="Italic" Grid.Column="1" 
+                        Margin="204,291,68,135"
+                        HorizontalContentAlignment="Right"
+                        MouseDown="forgotpassword_MouseDown"
+                        />
+
+
+                    <!--Login button-->
+
+                    <Button x:Name="LoginBtn" Grid.Column="1" 
+                         Style="{StaticResource SubmitButton}" 
+                         Margin="0,321,73,105" 
+                         Width="196"
+                         Content="Login"
+                         Cursor="Hand"
+                         BorderThickness="0"
+                         Click="LoginBtn_Click"
+                         />
+
+
+
+
+
+                </Grid>
+
+
+
+
+
+
+
+
+
+
+
+            </Grid>
+
+
+
+        </Border>
+
+
+
+
+
+    </Border>
 </Window>
