@@ -5,7 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:GYM_CLIENT.View.Admin" xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" 
+             d:DesignWidth="800"
+            >
     
     <Border x:Name="PageBorder" Background="White">
 
@@ -72,18 +74,18 @@
                 <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}" 
                     ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
                     CellStyle="{DynamicResource DataGridCellStyle1}" 
-                    x:Name="cashierDataGrid" Style="{DynamicResource DataGridStyle1}"
+                    x:Name="Clients" Style="{DynamicResource DataGridStyle1}"
                     ItemsSource="{Binding MembersCollection}"
                     SelectedItem="{Binding SelectedClient}"
                     AutoGenerateColumns="False">
 
                     <DataGrid.Columns>
 
-                        <DataGridTextColumn Header="ClientId" CanUserResize="False"  Binding="{Binding MemberID}" IsReadOnly="True" Width="*"/>
+                        <DataGridTextColumn Header="ClientId" CanUserResize="False"  Binding="{Binding ClientId}" IsReadOnly="True" Width="*"/>
                         <DataGridTextColumn Header="Name" CanUserResize="False"  Binding="{Binding FullName}" IsReadOnly="True" Width="*"/>
                         <DataGridTextColumn Header="Contact" CanUserResize="False"  Binding="{Binding Contact}" IsReadOnly="True" Width="*"/>
-                        <DataGridTextColumn Header="Trainee" CanUserResize="False"  Binding="{Binding Trainee.FullName}" IsReadOnly="True" Width="*"/>
-                        <DataGridTextColumn Header="Plan" CanUserResize="False"  Binding="{Binding MembershipPlan.MembershipName}" IsReadOnly="True" Width="*"/>
+                        <DataGridTextColumn Header="Trainee" CanUserResize="False"  Binding="{Binding TraineeName}" IsReadOnly="True" Width="*"/>
+                        <DataGridTextColumn Header="Plan" CanUserResize="False"  Binding="{Binding PlanName}" IsReadOnly="True" Width="*"/>
                         
                         <DataGridTemplateColumn Header="Action" CanUserResize="False" IsReadOnly="True" Width="*">
                             <DataGridTemplateColumn.CellTemplate>

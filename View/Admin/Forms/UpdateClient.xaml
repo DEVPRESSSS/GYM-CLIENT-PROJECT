@@ -11,6 +11,7 @@
           Width="800"
           WindowStartupLocation="CenterScreen"
           AllowsTransparency="True"
+           Loaded="Window_Loaded"
           Background="Transparent"
         >
     <Border CornerRadius="10" Background="White" BorderThickness="1" BorderBrush="Gray">
@@ -129,12 +130,13 @@
                                             <!--Client-->
                                             <Label Content="Client name*"/>
 
-                                            <TextBox/>
+                                            <TextBox x:Name="Name"/>
 
                                             <!--Contact-->
                                             <Label Content="Contact*"/>
 
-                                            <TextBox/>
+                                            <TextBox x:Name="Contact"/>
+
 
 
                                         </StackPanel>
@@ -149,12 +151,17 @@
                                             <!--Trainee-->
                                             <Label Content="Trainee(optional)*"/>
 
-                                            <TextBox/>
+                                            <ComboBox x:Name="Trainee"
+                                               DisplayMemberPath="Name"
+                                               SelectedValuePath="TraineerId"
+                                              />
 
-                                            <!--Membership-->
-                                            <Label Content="Membership*"/>
+                                                    <!--Membership-->
+                                              <Label Content="Membership*"/>
 
-                                            <TextBox/>
+                                              <ComboBox x:Name="Membership"
+                                                   DisplayMemberPath="PlanName"
+                                                   SelectedValuePath="PlanId" />
 
 
                                         </StackPanel>
@@ -175,6 +182,7 @@
                                 Width="430"
                                 Content="Submit"
                                 Cursor="Hand"
+                                Click="LoginBtn_Click"
                                 BorderThickness="0" HorizontalAlignment="Center" Margin="0,8,0,7"
                                 />
                             </Border>

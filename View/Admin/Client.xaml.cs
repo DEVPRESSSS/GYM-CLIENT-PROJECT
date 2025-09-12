@@ -1,5 +1,8 @@
-﻿using GYM_CLIENT.Model;
+﻿using GYM_CLIENT.DatabaseConnection;
+using GYM_CLIENT.Model;
+using GYM_CLIENT.Services;
 using GYM_CLIENT.View.Admin.Forms;
+using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,23 +25,106 @@ namespace GYM_CLIENT.View.Admin
     /// </summary>
     public partial class Client : UserControl
     {
+        private ClientService service = new ClientService();
+        private readonly Connection connection = new Connection();
+        private SqlConnection sqlConnection;
+
         public Client()
         {
             InitializeComponent();
+
+            service = new ClientService();
+            sqlConnection = new SqlConnection(connection.ConnectionString);
+            FetchAllClient();
         }
 
         private void NewClientButton_Click(object sender, RoutedEventArgs e)
         {
 
             AddClient client = new AddClient();
-            client.ShowDialog();  
 
+            client.clientCreated += (s,e) =>{
+                FetchAllClient();
+            };
+            client.ShowDialog();
+         
         }
 
         private void editBtn_Click(object sender, RoutedEventArgs e)
         {
-            UpdateClient client = new UpdateClient();
-            client.ShowDialog();
+            var btn = sender as Button;
+            if (btn == null) return;
+
+            var selectedClient = btn.DataContext as ClientModel;
+
+            if (selectedClient != null)
+            {
+                UpdateClient updateClient = new UpdateClient
+                {
+                    DataContext = selectedClient
+                };
+
+                updateClient.clientUpdated += (s, e) => {
+
+                    FetchAllClient();
+                };
+
+                updateClient.ShowDialog();
+            }
+
         }
+
+        private void FetchAllClient()
+        {
+                    var clientModels = new List<ClientModel>();
+
+                    string query = @"
+                                SELECT 
+                                    c.ClientId,
+                                    c.FullName,
+                                    c.Contact,
+                                    c.TrainerId,
+                                    t.Name AS TrainerName,
+                                    c.PlanId,
+                                    p.PlanName
+                                FROM Client c
+                                LEFT JOIN Trainee t ON c.TrainerId = t.TraineerId
+                                LEFT JOIN [Plan] p ON c.PlanId = p.Id";
+                    try
+                    {
+                        sqlConnection.Open();
+
+                        SqlCommand cmd = new SqlCommand(query, sqlConnection);
+                        SqlDataReader reader = cmd.ExecuteReader();
+
+                        while (reader.Read())
+                        {
+                            clientModels.Add(new ClientModel
+                            {
+                                ClientId = reader["ClientId"].ToString(),
+                                FullName = reader["FullName"].ToString(),
+                                Contact = reader["Contact"].ToString(),
+                                TraineeId = reader["TrainerId"].ToString(),
+                                TraineeName = reader["TrainerName"].ToString(),
+                                PlanId = reader["PlanId"].ToString(),
+                                PlanName = reader["PlanName"].ToString()
+
+                            });
+
+                        }
+
+                        Clients.ItemsSource = clientModels;
+                        reader.Close();
+                        sqlConnection.Close();
+
+                    }
+                    catch
+                    {
+                        MessageBox.Show($"Error while retrieving", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                    }
+        }
+
+       
     }
 }

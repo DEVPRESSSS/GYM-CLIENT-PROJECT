@@ -103,7 +103,7 @@ namespace GYM_CLIENT.View.Admin {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/GYM-CLIENT;V1.0.0.0;component/view/admin/staff.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/GYM-CLIENT;component/view/admin/staff.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\View\Admin\Staff.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
