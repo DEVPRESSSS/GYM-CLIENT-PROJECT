@@ -91,29 +91,19 @@
                 <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}" 
                        ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
                        CellStyle="{DynamicResource DataGridCellStyle1}" 
-                       x:Name="cashierDataGrid" Style="{DynamicResource DataGridStyle1}"
-                       ItemsSource="{Binding AppUsersCollection}"
-                       SelectedItem="{Binding SelectedAppUser}"
+                       x:Name="StaffGrid"
+                       Style="{DynamicResource DataGridStyle1}"                
                        AutoGenerateColumns="False">
 
                     <DataGrid.Columns>
-                        <!--<DataGridTemplateColumn Header="Professor" CanUserResize="False" IsReadOnly="True" Width="*">
-                             <DataGridTemplateColumn.CellTemplate>
-                                 <DataTemplate>
-                                     <StackPanel Orientation="Horizontal">
-                                         <Border Width="25" Height="25" CornerRadius="50" Margin="0 0 10 0" Background="{Binding bgColor}">
-                                             <TextBlock Text="{Binding Character }" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Margin="0 0 0 1"/>
-                                         </Border>
 
-                                     </StackPanel>
-                                 </DataTemplate>
-                             </DataGridTemplateColumn.CellTemplate>
-                         </DataGridTemplateColumn>-->
-                        <DataGridTextColumn Header="Firstname" CanUserResize="False"  Binding="{Binding FirstName}" IsReadOnly="True" Width="*"/>
-                        <DataGridTextColumn Header="Lastname" CanUserResize="False"  Binding="{Binding LastName}" IsReadOnly="True" Width="*"/>
-                        <DataGridTextColumn Header="Username" CanUserResize="False"  Binding="{Binding Username}" IsReadOnly="True" Width="*"/>
-                        <DataGridTextColumn Header="Gmail" CanUserResize="False"  Binding="{Binding Gmail}" IsReadOnly="True" Width="*"/>
-                        <DataGridTextColumn Header="Role" CanUserResize="False" Binding="{Binding Roles.RoleName, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Width="*"/>
+                        <DataGridTextColumn Header="StaffId" CanUserResize="False"  Binding="{Binding StaffId}" IsReadOnly="True" Width="*"/>
+                        <DataGridTextColumn Header="Name" CanUserResize="False"  Binding="{Binding Name}" IsReadOnly="True" Width="*"/>
+                        <DataGridTextColumn Header="Contact" CanUserResize="False"  Binding="{Binding Contact}" IsReadOnly="True" Width="*"/>
+                        <DataGridTextColumn Header="Role" CanUserResize="False"  Binding="{Binding RoleName}" IsReadOnly="True" Width="*"/>
+                        <DataGridTextColumn Header="Username" CanUserResize="False" Binding="{Binding Username}" IsReadOnly="True" Width="*"/>
+                        <DataGridTextColumn Header="Password" CanUserResize="False" Binding="{Binding Password}" IsReadOnly="True" Width="*"/>
+                        <!--<DataGridTextColumn Header="Created" CanUserResize="False" Binding="{Binding Created}" IsReadOnly="True" Width="*"/>-->
 
                         <DataGridTemplateColumn Header="Action" CanUserResize="False" IsReadOnly="True" Width="*">
                             <DataGridTemplateColumn.CellTemplate>
@@ -123,7 +113,7 @@
                                             <Icon:PackIconMaterial Kind="PencilOutline" Style="{StaticResource gridButtonIcon}"/>
                                         </Button>
                                         <Button Margin="5 0 0 0" Style="{StaticResource gridRemoveButton}"
-                                             Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext.DeleteCommand}">
+                                             Click="Button_Click">
                                             <Icon:PackIconMaterial Kind="DeleteOutline" Style="{StaticResource gridButtonIcon}"/>
                                         </Button>
                                     </StackPanel>

@@ -12,7 +12,7 @@ TRACE;DEBUG;NET;NET8_0;NETCOREAPP
 D:\ASP_PROJECTS\GYM-CLIENT\App.xaml
 141492237099
 
-25736073825
+27633465982
 260912582692
 Auth\ChangePassword.xaml;Auth\ForgotPassword.xaml;Auth\Login.xaml;MainWindow.xaml;View\Admin\Client.xaml;View\Admin\Dashboard.xaml;View\Admin\Equipment.xaml;View\Admin\Forms\AddClient.xaml;View\Admin\Forms\AddStaff.xaml;View\Admin\Forms\Plans.xaml;View\Admin\Forms\UpdateClient.xaml;View\Admin\Forms\UpdateStaff.xaml;View\Admin\Staff.xaml;View\Employee\Dashboard.xaml;
 

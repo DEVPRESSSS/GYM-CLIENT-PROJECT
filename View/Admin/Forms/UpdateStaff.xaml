@@ -11,6 +11,7 @@
          Width="800"
          WindowStartupLocation="CenterScreen"
          AllowsTransparency="True"
+        Loaded="Window_Loaded_1"
          Background="Transparent">
     <Border CornerRadius="10" Background="White" BorderThickness="1" BorderBrush="Gray">
 
@@ -49,10 +50,10 @@
 
                         <!--Image for the first column of row 2-->
                         <Image Grid.Row="1"
-                 Grid.Column="0"
-                 HorizontalAlignment="Left" Stretch="Fill"
-                  Source="pack://application:,,,/Resources/FormIcon.png"
-                 />
+                             Grid.Column="0"
+                             HorizontalAlignment="Left" Stretch="Fill"
+                              Source="pack://application:,,,/Resources/FormIcon.png"
+                             />
 
                     </Border>
 
@@ -128,17 +129,17 @@
                                             <!--Client-->
                                             <Label Content="Staff name*"/>
 
-                                            <TextBox/>
+                                            <TextBox x:Name="Name"/>
 
                                             <!--Contact-->
                                             <Label Content="Contact*"/>
 
-                                            <TextBox/>
+                                            <TextBox x:Name="Contact"/>
 
                                             <!--Gmail-->
                                             <Label Content="Gmail*"/>
 
-                                            <TextBox/>
+                                            <TextBox x:Name="Email"/>
 
                                         </StackPanel>
 
@@ -152,18 +153,21 @@
                                             <!--Username-->
                                             <Label Content="Username"/>
 
-                                            <TextBox/>
+                                            <TextBox x:Name="Username"/>
 
                                             <!--Password-->
                                             <Label Content="Password*"/>
 
-                                            <TextBox/>
+                                            <TextBox x:Name="Password"/>
 
 
                                             <!--Role-->
                                             <Label Content="Role*"/>
 
-                                            <ComboBox/>
+                                            <ComboBox x:Name="Role"
+                                                 DisplayMemberPath="RoleName"
+                                                 SelectedValue="RoleId"
+                                                 />
 
                                         </StackPanel>
 

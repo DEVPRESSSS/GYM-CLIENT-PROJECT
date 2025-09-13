@@ -123,7 +123,7 @@ namespace GYM_CLIENT.View.Admin
                         MessageBox.Show($"Error while retrieving", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
                     }
-}
+        }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {

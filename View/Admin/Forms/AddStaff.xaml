@@ -129,17 +129,17 @@
                                             <!--Client-->
                                             <Label Content="Staff name*"/>
 
-                                            <TextBox/>
+                                            <TextBox x:Name="Name"/>
 
                                             <!--Contact-->
                                             <Label Content="Contact*"/>
 
-                                            <TextBox/>
+                                            <TextBox x:Name="Contact"/>
 
                                             <!--Gmail-->
                                             <Label Content="Gmail*"/>
 
-                                            <TextBox/>
+                                            <TextBox x:Name="Email"/>
 
                                         </StackPanel>
 
@@ -153,18 +153,21 @@
                                             <!--Username-->
                                             <Label Content="Username"/>
 
-                                            <TextBox/>
+                                            <TextBox x:Name="Username"/>
 
                                             <!--Password-->
                                             <Label Content="Password*"/>
 
-                                            <TextBox/>
+                                            <TextBox x:Name="Password"/>
 
 
                                             <!--Role-->
                                             <Label Content="Role*"/>
 
-                                            <ComboBox/>
+                                            <ComboBox x:Name="Role"
+                                                      DisplayMemberPath="RoleName"
+                                                      SelectedValue="RoleId"
+                                                      />
 
                                         </StackPanel>
 
@@ -180,12 +183,13 @@
 
 
                                 <Button x:Name="LoginBtn" Grid.Column="1" 
-                             Style="{StaticResource SubmitButton}" 
-                             Width="430"
-                             Content="Submit"
-                             Cursor="Hand"
-                             BorderThickness="0" HorizontalAlignment="Center" Margin="0,8,0,7"
-                             />
+                                     Style="{StaticResource SubmitButton}" 
+                                     Width="430"
+                                     Content="Submit"
+                                     Cursor="Hand"
+                                     Click="LoginBtn_Click"
+                                     BorderThickness="0" HorizontalAlignment="Center" Margin="0,8,0,7"
+                                     />
                             </Border>
 
                         </Grid>

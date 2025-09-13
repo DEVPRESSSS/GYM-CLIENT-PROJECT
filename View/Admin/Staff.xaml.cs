@@ -1,4 +1,7 @@
-﻿using GYM_CLIENT.View.Admin.Forms;
+﻿using GYM_CLIENT.DatabaseConnection;
+using GYM_CLIENT.Model;
+using GYM_CLIENT.View.Admin.Forms;
+using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,9 +24,13 @@ namespace GYM_CLIENT.View.Admin
     /// </summary>
     public partial class Staff : UserControl
     {
+        private readonly Connection connection = new Connection();
+        private SqlConnection sqlConnection;
         public Staff()
         {
             InitializeComponent();
+            sqlConnection = new SqlConnection(connection.ConnectionString);
+            FetchAllStaff();
         }
 
         private void StaffBtn_Click(object sender, RoutedEventArgs e)
@@ -35,8 +42,119 @@ namespace GYM_CLIENT.View.Admin
 
         private void editBtn_Click(object sender, RoutedEventArgs e)
         {
-            UpdateStaff addStaff = new UpdateStaff();
-            addStaff.ShowDialog();
+            var btn = sender as Button;
+            if (btn == null) return;
+
+            var selectedStaff = btn.DataContext as StaffModel;
+
+            if (selectedStaff != null)
+            {
+                UpdateStaff updateClient = new UpdateStaff
+                {
+                    DataContext = selectedStaff
+                };
+
+                //updateClient.clientUpdated += (s, e) => {
+
+                //    FetchAllClient();
+                //};
+
+                updateClient.ShowDialog();
+            }
+        }
+
+        private void FetchAllStaff()
+        {
+
+            var clientModels = new List<StaffModel>();
+
+            string query = @"SELECT c.StaffId,
+                               c.Name,
+                               c.Contact,
+                               c.Email,
+                               t.RoleName, -- get the readable name from Role table
+                               c.Created,
+                               c.Username,
+                               c.Password
+                        FROM Staff c
+                        LEFT JOIN Role t ON c.Role = t.RoleId";
+            try
+            {
+                sqlConnection.Open();
+
+                SqlCommand cmd = new SqlCommand(query, sqlConnection);
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    clientModels.Add(new StaffModel
+                    {
+                        StaffId = reader["StaffId"].ToString(),
+                        Name = reader["Name"].ToString(),
+                        Contact = reader["Contact"].ToString(),
+                        Gmail = reader["Email"].ToString(),
+                        RoleName = reader["RoleName"].ToString(),
+                        Username = reader["Username"].ToString(),
+                        Password = reader["Password"].ToString(),
+                        Created = reader["Created"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(reader["Created"]),
+
+                    });
+
+                }
+
+                StaffGrid.ItemsSource = clientModels;
+                reader.Close();
+                sqlConnection.Close();
+
+            }
+            catch
+            {
+                MessageBox.Show($"Error while retrieving", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+            var button = sender as Button;
+
+            if(button==null)
+            {
+                return;
+            }
+            var selectedStaff = button.DataContext as StaffModel;
+
+            if (selectedStaff != null)
+            {
+                MessageBoxResult result = MessageBox.Show(
+                 "Are you sure you want to delete this product?",
+                 "Confirmation",
+                 MessageBoxButton.YesNo,
+                 MessageBoxImage.Question);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    try
+                    {
+                        sqlConnection.Open();
+                        SqlCommand cmd = new SqlCommand("DELETE FROM Staff WHERE StaffId = @StaffId", sqlConnection);
+                        cmd.Parameters.AddWithValue("@StaffId", selectedStaff.StaffId);
+
+                        cmd.ExecuteNonQuery();
+                        MessageBox.Show("Staff deleted successfully", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                        sqlConnection.Close();
+
+                        FetchAllStaff();
+                    }
+                    catch (Exception Ex)
+                    {
+                        MessageBox.Show(Ex.Message);
+                    }
+
+                }
+            }
         }
     }
 }
