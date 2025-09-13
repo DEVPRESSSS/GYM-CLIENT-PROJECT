@@ -123,8 +123,47 @@ namespace GYM_CLIENT.View.Admin
                         MessageBox.Show($"Error while retrieving", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
                     }
-        }
+}
 
-       
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var btn = sender as Button;
+            if (btn == null) return;
+
+            var selectedClient = btn.DataContext as ClientModel;
+
+            if (selectedClient != null)
+            {
+
+                MessageBoxResult result = MessageBox.Show(
+                  "Are you sure you want to delete this product?",
+                  "Confirmation",
+                  MessageBoxButton.YesNo,
+                  MessageBoxImage.Question);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    try
+                    {
+                        sqlConnection.Open();
+                        SqlCommand cmd = new SqlCommand("DELETE FROM Client WHERE ClientId = @ClientId", sqlConnection);
+                        cmd.Parameters.AddWithValue("@ClientId", selectedClient.ClientId);
+
+                        cmd.ExecuteNonQuery();
+                        MessageBox.Show("Client deleted successfully", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                        sqlConnection.Close();
+
+                        FetchAllClient();
+                    }
+                    catch (Exception Ex)
+                    {
+                        MessageBox.Show(Ex.Message);
+                    }
+
+                }
+
+            }
+        }
     }
 }
