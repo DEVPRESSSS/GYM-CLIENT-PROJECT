@@ -16,6 +16,12 @@
     <Compile Update="Auth\Login.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\Admin\Attendance.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\Admin\Forms\AccessCardView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\Admin\Forms\AddClient.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -28,13 +34,22 @@
     <Compile Update="View\Admin\Equipment.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\Admin\Forms\AddEquipments.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\Admin\Forms\AddStaff.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\Admin\Forms\CameraWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\Admin\Forms\Plans.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\Admin\Forms\UpdateClient.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\Admin\Forms\UpdateEquipment.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\Admin\Forms\UpdateStaff.xaml.cs">
@@ -60,6 +75,12 @@
     <Page Update="MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="View\Admin\Attendance.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\Admin\Forms\AccessCardView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="View\Admin\Forms\AddClient.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -72,13 +93,22 @@
     <Page Update="View\Admin\Equipment.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="View\Admin\Forms\AddEquipments.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="View\Admin\Forms\AddStaff.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\Admin\Forms\CameraWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\Admin\Forms\Plans.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\Admin\Forms\UpdateClient.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\Admin\Forms\UpdateEquipment.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\Admin\Forms\UpdateStaff.xaml">

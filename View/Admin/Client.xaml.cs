@@ -84,15 +84,16 @@ namespace GYM_CLIENT.View.Admin
                                     c.FullName,
                                     c.Contact,
                                     c.TrainerId,
+                                    c.hasAccessCard,
                                     t.Name AS TrainerName,
                                     c.PlanId,
                                     p.PlanName
                                 FROM Client c
                                 LEFT JOIN Trainee t ON c.TrainerId = t.TraineerId
                                 LEFT JOIN [Plan] p ON c.PlanId = p.Id";
-                    try
-                    {
-                        sqlConnection.Open();
+            try
+            {
+                sqlConnection.Open();
 
                         SqlCommand cmd = new SqlCommand(query, sqlConnection);
                         SqlDataReader reader = cmd.ExecuteReader();
@@ -105,6 +106,7 @@ namespace GYM_CLIENT.View.Admin
                                 FullName = reader["FullName"].ToString(),
                                 Contact = reader["Contact"].ToString(),
                                 TraineeId = reader["TrainerId"].ToString(),
+                                hasAccessCard = reader["hasAccessCard"] != DBNull.Value && Convert.ToBoolean(reader["hasAccessCard"]),
                                 TraineeName = reader["TrainerName"].ToString(),
                                 PlanId = reader["PlanId"].ToString(),
                                 PlanName = reader["PlanName"].ToString()
@@ -117,7 +119,7 @@ namespace GYM_CLIENT.View.Admin
                         reader.Close();
                         sqlConnection.Close();
 
-                    }
+                     }
                     catch
                     {
                         MessageBox.Show($"Error while retrieving", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -163,6 +165,30 @@ namespace GYM_CLIENT.View.Admin
 
                 }
 
+            }
+        }
+
+        private void GenerateQRbtn_Click(object sender, RoutedEventArgs e)
+        {
+          
+            var btn = sender as Button;
+            if (btn == null) return;
+
+            var selectedClient = btn.DataContext as ClientModel;
+
+            if (selectedClient != null)
+            {
+                AccessCardView updateClient = new AccessCardView
+                {
+                    DataContext = selectedClient
+                };
+
+                //updateClient.clientUpdated += (s, e) => {
+
+                //    FetchAllClient();
+                //};
+
+                updateClient.ShowDialog();
             }
         }
     }

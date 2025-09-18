@@ -13,7 +13,7 @@ namespace GYM_CLIENT.Model
         public string? Name { get; set; }
         public string? Contact { get; set; }
         public string? Gmail { get; set; }
-        public string? Role { get; set; }
+        public string? RoleId { get; set; }
         public string? RoleName { get; set; }
         public string? Username { get; set; }
         public string? Password { get; set; }

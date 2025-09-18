@@ -85,7 +85,7 @@ namespace GYM_CLIENT
 
         private void Attendance_Click(object sender, RoutedEventArgs e)
         {
-            //MainContentArea.Content = new Attendance();
+            MainContentArea.Content = new Attendance();
 
         }
 

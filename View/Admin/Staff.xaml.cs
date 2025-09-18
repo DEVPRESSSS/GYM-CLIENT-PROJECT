@@ -49,17 +49,18 @@ namespace GYM_CLIENT.View.Admin
 
             if (selectedStaff != null)
             {
-                UpdateStaff updateClient = new UpdateStaff
+                UpdateStaff updateStaff = new UpdateStaff
                 {
                     DataContext = selectedStaff
                 };
 
-                //updateClient.clientUpdated += (s, e) => {
+                updateStaff.staffUpdated += (s, e) =>
+                {
 
-                //    FetchAllClient();
-                //};
+                    FetchAllStaff();
+                };
 
-                updateClient.ShowDialog();
+                updateStaff.ShowDialog();
             }
         }
 
@@ -72,6 +73,7 @@ namespace GYM_CLIENT.View.Admin
                                c.Name,
                                c.Contact,
                                c.Email,
+                               c.Role,
                                t.RoleName, -- get the readable name from Role table
                                c.Created,
                                c.Username,
@@ -93,6 +95,7 @@ namespace GYM_CLIENT.View.Admin
                         Name = reader["Name"].ToString(),
                         Contact = reader["Contact"].ToString(),
                         Gmail = reader["Email"].ToString(),
+                        RoleId = reader["Role"].ToString(),
                         RoleName = reader["RoleName"].ToString(),
                         Username = reader["Username"].ToString(),
                         Password = reader["Password"].ToString(),

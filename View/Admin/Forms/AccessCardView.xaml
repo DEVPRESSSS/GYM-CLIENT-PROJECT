@@ -1,0 +1,145 @@
+﻿<Window x:Class="GYM_CLIENT.View.Admin.Forms.AccessCardView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GYM_CLIENT.View.Admin.Forms" xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        mc:Ignorable="d"
+        Title="AccessCardView" 
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        Loaded="Window_Loaded"
+        Height="290" Width="350"
+        >
+
+    <Border CornerRadius="10" Background="White">
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20"/>
+                <RowDefinition />
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+            <Border Background="#313638" CornerRadius="9,9,0,0"  Grid.Row="0">
+                <!--Close button-->
+                <Button x:Name="CloseBtn"
+                   Style="{StaticResource MinimizeButtonStyle}"
+                   Grid.Column="1"
+                   HorizontalAlignment="Right"
+                   Margin="0,0,4,0"
+                   Cursor="Hand"
+                   Click="CloseBtn_Click">
+
+
+                    <Icon:PackIconMaterial 
+                            Kind="Close" 
+                            VerticalAlignment="Center"
+                            Height="10"
+                            HorizontalAlignment="Right"
+                            Width="16"
+                        />
+
+                </Button>
+
+            </Border>
+
+            <Border Background="#F4F5F6" Grid.Row="1">
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="200"/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" 
+                        BorderThickness="1"
+                        Margin="2"
+                        Background="White">
+
+                        <TextBlock 
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Text="Generate access card with QR"/>
+                   
+
+
+                    </Border>
+                    <Border Grid.Row="1" 
+                            BorderThickness="1"
+                            BorderBrush="Gray"
+                            CornerRadius="10"
+                            Margin="10"
+                            Background="White">
+
+
+
+                        <Grid>
+
+
+
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="190"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <Border Margin="1" Grid.Column="0">
+
+                                <Grid>
+
+                                    <Grid.Background>
+                                        <ImageBrush ImageSource="pack://application:,,,/Resources/logobg.png"     
+                                         Stretch="UniformToFill" 
+                                         Opacity="0.7"/>
+                                    </Grid.Background>
+                                </Grid>
+                            </Border>
+
+                            <Border Grid.Column="1">
+                                <StackPanel Margin="0,30,0,0" Orientation="Vertical" >
+
+                                    <Image Name="QRCodePictureBox" 
+                                           Width="100" 
+                                           Height="100"
+                                           Stretch="Fill"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center">
+                                        <Image.Style>
+                                            <Style TargetType="Image">
+                                                <Style.Triggers>
+                                                    <Trigger Property="Source" Value="{x:Null}">
+                                                        <Setter Property="Visibility" Value="Hidden"/>
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Image.Style>
+                                    </Image>
+
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+                        <!-- Replace the LinearGradientBrush with -->
+
+
+                    </Border>
+                </Grid>
+
+            </Border>
+
+
+            <Border Grid.Row="2">
+                <Button x:Name="GenerateQR" Grid.Column="1" 
+                  Style="{StaticResource SubmitButton}" 
+                  Width="330"
+                  Content="Generate"
+                  Cursor="Hand"
+                  Click="GenerateQR_Click"
+                  BorderThickness="0" HorizontalAlignment="Center" Margin="0,8,0,7"
+                  />
+            </Border>
+
+        </Grid>
+
+    </Border>
+</Window>

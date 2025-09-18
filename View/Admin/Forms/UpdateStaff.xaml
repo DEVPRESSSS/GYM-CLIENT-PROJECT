@@ -183,12 +183,13 @@
 
 
                                 <Button x:Name="LoginBtn" Grid.Column="1" 
-                         Style="{StaticResource SubmitButton}" 
-                         Width="430"
-                         Content="Submit"
-                         Cursor="Hand"
-                         BorderThickness="0" HorizontalAlignment="Center" Margin="0,8,0,7"
-                         />
+                                 Style="{StaticResource SubmitButton}" 
+                                 Width="430"
+                                 Content="Submit"
+                                 Cursor="Hand"
+                                 Click="LoginBtn_Click"
+                                 BorderThickness="0" HorizontalAlignment="Center" Margin="0,8,0,7"
+                                 />
                             </Border>
 
                         </Grid>

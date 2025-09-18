@@ -86,7 +86,19 @@
                         <DataGridTextColumn Header="Contact" CanUserResize="False"  Binding="{Binding Contact}" IsReadOnly="True" Width="*"/>
                         <DataGridTextColumn Header="Trainee" CanUserResize="False"  Binding="{Binding TraineeName}" IsReadOnly="True" Width="*"/>
                         <DataGridTextColumn Header="Plan" CanUserResize="False"  Binding="{Binding PlanName}" IsReadOnly="True" Width="*"/>
-                        
+                        <DataGridTemplateColumn Header="AccessCard" CanUserResize="False" IsReadOnly="True" Width="*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button x:Name="GenerateQRbtn" Click="GenerateQRbtn_Click"  Style="{StaticResource gridEditButton}"
+       >
+                                            <Icon:PackIconMaterial Kind="Card" Style="{StaticResource gridButtonIcon}"/>
+                                        </Button>
+                                     
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
                         <DataGridTemplateColumn Header="Action" CanUserResize="False" IsReadOnly="True" Width="*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
