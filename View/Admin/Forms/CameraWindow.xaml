@@ -11,7 +11,7 @@
          AllowsTransparency="True"
          Background="Transparent"
          Loaded="Window_Loaded"
-         Height="290" Width="350"
+         Height="300" Width="350"
         >
     <Border CornerRadius="10" Background="White">
 
@@ -19,7 +19,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="20"/>
                 <RowDefinition />
-                <RowDefinition Height="40"/>
+                <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
             <Border Background="#313638" CornerRadius="9,9,0,0"  Grid.Row="0">
                 <!--Close button-->
@@ -80,15 +80,21 @@
 
                     </Border>
 
-                    <Border Grid.Row="2">
-                        <TextBlock x:Name="Results"/>
-                    </Border>
+              
                 </Grid>
 
             </Border>
 
+            <Border Grid.Row="2">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock x:Name="ClientName" Foreground="Green" HorizontalAlignment="Center"/>
+                    <TextBlock x:Name="CardNumber" Foreground="Green" HorizontalAlignment="Center"/>
+                    <TextBlock x:Name="Membership" Foreground="Green" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Border>
 
-       
+
+
 
         </Grid>
 

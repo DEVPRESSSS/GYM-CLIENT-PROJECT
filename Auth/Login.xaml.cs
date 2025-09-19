@@ -1,4 +1,6 @@
-﻿using System;
+﻿using GYM_CLIENT.DatabaseConnection;
+using Microsoft.Data.SqlClient;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -20,9 +22,14 @@ namespace GYM_CLIENT.Auth
     /// </summary>
     public partial class Login : Window
     {
+
+        private readonly Connection connection = new Connection();
+        private SqlConnection sqlConnection;
         public Login()
         {
             InitializeComponent();
+            sqlConnection = new SqlConnection(connection.ConnectionString);
+
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
@@ -32,24 +39,49 @@ namespace GYM_CLIENT.Auth
 
         private void Passwordtxt_PasswordChanged(object sender, RoutedEventArgs e)
         {
-
+            if (Passwordtxt.Password.Length > 0)
+            {
+                Eye.Visibility = Visibility.Visible;
+                PasswordErrorMessage.Text = "";
+                Passwordtxt.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#727272"));
+                Passwordtxt.BorderThickness = new Thickness(0, 0, 0, 2);
+            }
+            else
+            {
+                Eye.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void PasswordUnmask_TextChanged(object sender, TextChangedEventArgs e)
         {
 
+            if (PasswordUnmask.Text.Length == 0)
+            {
+
+                Eye2.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                Eye2.Visibility = Visibility.Visible;
+            }
         }
 
         private void Usernametxt_TextChanged(object sender, TextChangedEventArgs e)
         {
+            if (Usernametxt.Text.Length > 0)
+            {
+
+                UsernameErrorMessage.Text = "";
+                Usernametxt.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#727272"));
+                Usernametxt.BorderThickness = new Thickness(0, 0, 0, 2);
+
+            }
 
         }
 
         private void LoginBtn_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow main = new MainWindow();
-            main.Show();
-            this.Close();
+            Auth();
         }
 
         private void CloseBtn_Click(object sender, RoutedEventArgs e)
@@ -59,6 +91,24 @@ namespace GYM_CLIENT.Auth
 
         private void Eye_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            if (Passwordtxt.Visibility == Visibility.Visible)
+            {
+                Eye.Visibility = Visibility.Collapsed;
+                Eye2.Visibility = Visibility.Visible;
+
+                PasswordUnmask.Text = Passwordtxt.Password;
+                PasswordUnmask.Visibility = Visibility.Visible;
+                Passwordtxt.Visibility = Visibility.Hidden;
+
+            }
+            else
+            {
+
+                PasswordUnmask.Visibility = Visibility.Collapsed;
+
+                Passwordtxt.Visibility = Visibility.Visible;
+
+            }
 
         }
 
@@ -71,7 +121,115 @@ namespace GYM_CLIENT.Auth
 
         private void Eye2_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            if (PasswordUnmask.Visibility == Visibility.Visible)
+            {
+                Eye.Visibility = Visibility.Visible;
+                Eye2.Visibility = Visibility.Collapsed;
+
+                Passwordtxt.Password = PasswordUnmask.Text;
+                Passwordtxt.Visibility = Visibility.Visible;
+                PasswordUnmask.Visibility = Visibility.Hidden;
+
+            }
 
         }
+
+        private void Usernametxt_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            HelperValidation.ValidationHelper.UsernameTextComposition(sender, e);
+
+        }
+
+        private void Usernametxt_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            HelperValidation.ValidationHelper.NoSpaceOnly(sender, e);
+
+        }
+
+        private void Passwordtxt_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+        }
+
+        private void Passwordtxt_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            HelperValidation.ValidationHelper.NoSpaceOnly(sender, e);
+
+        }
+
+        private void ClearTextBoxes()
+        {
+            Usernametxt.Text = "";
+            Passwordtxt.Password = "";
+            PasswordUnmask.Text = "";
+        }
+        private void Auth()
+        {
+            // Use whichever textbox is currently visible for password
+            string username = Usernametxt.Text.Trim();
+            string password = Passwordtxt.Visibility == Visibility.Visible
+                                ? Passwordtxt.Password
+                                : PasswordUnmask.Text;
+
+            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
+            {
+                MessageBox.Show("Please fill all fields", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                ClearTextBoxes();
+                return;
+            }
+
+            try
+            {
+                using (sqlConnection = new SqlConnection(connection.ConnectionString))
+                {
+                    sqlConnection.Open();
+
+                    string query = @"
+                        SELECT Role 
+                        FROM Staff
+                        WHERE Username = @Username COLLATE SQL_Latin1_General_CP1_CS_AS
+                          AND Password = @Password COLLATE SQL_Latin1_General_CP1_CS_AS";
+
+                    ;
+
+                    using (SqlCommand cmd = new SqlCommand(query, sqlConnection))
+                    {
+                        cmd.Parameters.AddWithValue("@Username", username);
+                        cmd.Parameters.AddWithValue("@Password", password);
+
+                        var role = cmd.ExecuteScalar() as string;
+
+                        if (!string.IsNullOrEmpty(role))
+                        {
+                            string user = username;
+
+                            if (role.Equals("ROLE-101", StringComparison.OrdinalIgnoreCase))
+                            {
+                                MainWindow main = new MainWindow();
+                                main.Show();
+                                this.Close();
+                            }
+                            else
+                            {
+                                //// Go to Cashier Window
+                                //CashierDashboard cashier = new CashierDashboard(user);
+                                //cashier.Show();
+                                //this.Close();
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Invalid Username or Password", "Login Failed", MessageBoxButton.OK, MessageBoxImage.Error);
+                            ClearTextBoxes();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}", "Database Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                ClearTextBoxes();
+            }
+        }
+
     }
 }

@@ -77,9 +77,16 @@ namespace GYM_CLIENT.View.Admin.Forms
                     {
                         if (userInfo != null)
                         {
+                            string IdClient = userInfo.ClientId;
 
-                            MessageBox.Show($"Client Found:{userInfo.ClientId}");
-                                                                               
+
+                            Membership.Text = userInfo.PlanName;
+                            ClientName.Text = userInfo.FullName;
+                            CardNumber.Text = userInfo.CardNumber;
+
+                            //Validate first if the Client has valid plan
+                            UpdateAttendance(IdClient);
+
                         }
                         else
                         {
@@ -172,25 +179,28 @@ namespace GYM_CLIENT.View.Admin.Forms
 
         private  ClientModel GetUserByBarcodeAsync(string barcode)
         {
-            //try
-            //{
+            try
+            {
 
-                     sqlConnection.Open();
+                    sqlConnection.Open();
 
                     string query = @"
-                        SELECT 
-                            c.ClientId,
-                            c.FullName,
-                            c.Contact,
-                            c.TrainerId,
-                            c.PlanId,
-                            c.hasAccessCard,
-                            ac.CardID,
-                            ac.CardNumber,
-                            ac.IssuedDate,
-                            ac.ExpiryDate
+                       SELECT c.ClientId,
+                             c.FullName,
+                             c.Contact,
+                             c.TrainerId,
+                             c.PlanId,
+                             p.PlanName,
+                             c.hasAccessCard,
+                             ac.CardID,
+                             ac.CardNumber,
+                             ac.IssuedDate,
+                             ac.ExpiryDate
                         FROM [GymDb].[dbo].[Client] c
-                        INNER JOIN [GymDb].[dbo].[AccessCards] ac ON c.ClientId = ac.ClientId
+                        INNER JOIN [GymDb].[dbo].[Plan] p 
+                            ON c.PlanId = p.Id
+                        INNER JOIN [GymDb].[dbo].[AccessCards] ac 
+                            ON c.ClientId = ac.ClientId
                         WHERE c.ClientId = @ClientId";
 
                     using (var command = new SqlCommand(query, sqlConnection))
@@ -201,41 +211,78 @@ namespace GYM_CLIENT.View.Admin.Forms
                         {
                             if (reader.Read())
                             {
+
                                 return new ClientModel
                                 {
                                     ClientId = reader["ClientId"].ToString(),
-                                    //FullName = reader.GetString("FullName"),
+                                    FullName = reader.GetString("FullName"),
                                     //Contact = reader.IsDBNull("Contact") ? "N/A" : reader.GetString("Contact"),
                                     //TraineeId = reader.GetString("TrainerId") ,
-                                    //PlanId = reader.GetString("PlanId"),
+                                    PlanId = reader["PlanId"].ToString(),
+                                    PlanName = reader["PlanName"].ToString(),
                                     //hasAccessCard = reader.GetBoolean("hasAccessCard"),
-                                    //CardNumber = reader.GetString("CardNumber"),
+                                    CardNumber = reader["CardNumber"].ToString(),
                                     //IssuedDate = reader.GetDateTime("IssuedDate"),
                                     //ExpiryDate = reader.GetDateTime("ExpiryDate"),
                                 };
+
                             }
+
                         }
-                    }
-                
-            //}
-            //catch (SqlException ex)
-            //{
-            //    Dispatcher?.BeginInvoke(() =>
-            //    {
-            //        MessageBox.Show($"Database error: {ex.Message}");
-            //    });
-            //}
-            //catch (Exception ex)
-            //{
-            //    Dispatcher?.BeginInvoke(() =>
-            //    {
-            //        MessageBox.Show($"Error retrieving user: {ex.Message}");
-            //    });
-            //}
+                         sqlConnection.Close();
+
+                      }
+
+            }
+            catch (SqlException ex)
+            {
+                Dispatcher?.BeginInvoke(() =>
+                {
+                    MessageBox.Show($"Database error: {ex.Message}");
+                });
+            }
+            catch (Exception ex)
+            {
+                Dispatcher?.BeginInvoke(() =>
+                {
+                    MessageBox.Show($"Error retrieving user: {ex.Message}");
+                });
+            }
 
             return null ;
         }
 
 
+
+        private void UpdateAttendance(string clientId)
+        {
+            try {
+
+
+                string QUERY = "Insert Into Attendance (ClientId,CheckInTime) VALUES(@ClientId,@CheckInTime)";
+                SqlCommand cmd = new SqlCommand(QUERY, sqlConnection);
+                cmd.Parameters.AddWithValue("@ClientId", clientId);
+                cmd.Parameters.AddWithValue("@CheckInTime", DateTime.Now);
+
+                int row = cmd.ExecuteNonQuery();
+
+                if(row > 0 )
+                {
+
+                    MessageBox.Show("Client attendance recorded","Success",MessageBoxButton.OK,MessageBoxImage.Information);
+                    sqlConnection.Close();
+
+                    return;
+                }
+
+            }
+            catch (Exception ex) {
+
+
+                MessageBox.Show("Error" + ex);
+            }
+
+
+        }
     }
 }

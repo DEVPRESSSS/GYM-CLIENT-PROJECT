@@ -153,7 +153,9 @@
                           Margin="80,213,73,213"
                           MaxLength="30"
                           BorderBrush="#727272" 
-                          TextChanged="Usernametxt_TextChanged"                               
+                          TextChanged="Usernametxt_TextChanged"
+                           PreviewTextInput="Usernametxt_PreviewTextInput"
+                           PreviewKeyDown="Usernametxt_PreviewKeyDown"
                           />
 
                     <!--Error message textblock in username-->
@@ -177,9 +179,11 @@
                     <PasswordBox x:Name="Passwordtxt" Grid.Column="1" 
                               Style="{StaticResource PasswordBoxes}" 
                               Margin="80,265,73,161"
-                              MaxLength="24"
+                              MaxLength="20"
                               BorderBrush="#727272" 
                               PasswordChanged="Passwordtxt_PasswordChanged"
+                              PreviewTextInput="Passwordtxt_PreviewTextInput"
+                              PreviewKeyDown="Passwordtxt_PreviewKeyDown"
                               />
 
                     <!--Error message textblock in password-->
@@ -199,7 +203,7 @@
                    Grid.Column="1"
                    Style="{StaticResource TextBoxes}" 
                    Margin="80,265,73,161"
-                   MaxLength="30"
+                   MaxLength="20"
                    Visibility="Collapsed"
                    BorderBrush="#727272" 
                           TextChanged="PasswordUnmask_TextChanged"
@@ -231,7 +235,7 @@
 
                     <Label x:Name="forgotpassword" 
                         Content="forgot password"
-                        FontSize="9"
+                        FontSize="9"                       
                         FontStyle="Italic" Grid.Column="1" 
                         Margin="204,291,68,135"
                         HorizontalContentAlignment="Right"
@@ -242,13 +246,13 @@
                     <!--Login button-->
 
                     <Button x:Name="LoginBtn" Grid.Column="1" 
-                         Style="{StaticResource SubmitButton}" 
-                         Margin="0,321,73,105" 
-                         Width="196"
-                         Content="Login"
-                         Cursor="Hand"
-                         BorderThickness="0"
-                         Click="LoginBtn_Click"
+                             Style="{StaticResource SubmitButton}" 
+                             Margin="0,321,73,105" 
+                             Width="196"
+                             Content="Login"
+                             Cursor="Hand"
+                             BorderThickness="0"
+                             Click="LoginBtn_Click"
                          />
 
 
