@@ -44,15 +44,22 @@ namespace GYM_CLIENT.View.Admin.Forms
 
         private void UpdateStaffRecord()
         {
-            string query = "UPDATE Staff SET Name = @Name, Contact = @Contact, Email = @Email, Role = @Role, Username = @Username, Password = @Password WHERE StaffId = @StaffId";
+            string query = "UPDATE Staff SET Name = @Name, Contact = @Contact, Email = @Email, Role = @Role, Username = @Username WHERE StaffId = @StaffId";
 
             try
             {
                 sqlConnection.Open();
                 string? selectedPlanId = Role?.SelectedValue?.ToString();
 
+                if (Contact.Text.Length < 11)
+                {
+
+                    MessageBox.Show($"Contact must be 11 numbers", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
                 if (string.IsNullOrWhiteSpace(Name.Text) || string.IsNullOrWhiteSpace(Contact.Text) ||
-                    string.IsNullOrWhiteSpace(Username.Text) || string.IsNullOrWhiteSpace(Password.Text) ||
+                    string.IsNullOrWhiteSpace(Username.Text) || 
                     string.IsNullOrWhiteSpace(Email.Text) )
                 {
                     MessageBox.Show("All fields are required", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -66,15 +73,16 @@ namespace GYM_CLIENT.View.Admin.Forms
                     cmd.Parameters.AddWithValue("@Contact", Contact.Text.Trim());
                     cmd.Parameters.AddWithValue("@Email", Email.Text.Trim());
                     cmd.Parameters.AddWithValue("@Username", Username.Text.Trim());
-                    cmd.Parameters.AddWithValue("@Password", Password.Text.Trim());
+                    //cmd.Parameters.AddWithValue("@Password", Password.Text.Trim());
                     cmd.Parameters.AddWithValue("@Role", selectedPlanId ?? string.Empty);
 
                     int rows = cmd.ExecuteNonQuery();
 
                     if (rows > 0)
                     {
-                        MessageBox.Show("Staff updated successfully");
+                        MessageBox.Show("Staff updated successfully","Error",MessageBoxButton.OK,MessageBoxImage.Information);
                         staffUpdated?.Invoke(this, new EventArgs()); 
+                        this.Close();
                     }
                     else
                     {
@@ -107,7 +115,7 @@ namespace GYM_CLIENT.View.Admin.Forms
                 Email.Text = staff.Gmail;
                 Email.Text = staff.Gmail;
                 Username.Text = staff.Username;
-                Password.Text = staff.Password;
+                //Password.Text = staff.Password;
                 Role.SelectedValue = staff.RoleId;
 
 
@@ -126,6 +134,59 @@ namespace GYM_CLIENT.View.Admin.Forms
             Role.ItemsSource = roles;
             Role.DisplayMemberPath = "RoleName";
             Role.SelectedValuePath = "RoleId";
+        }
+
+        private void Name_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            HelperValidation.ValidationHelper.PersonNameTextComposition(sender, e);
+
+        }
+
+        private void Name_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            HelperValidation.ValidationHelper.PersonNameTextKeyDown(sender, e);
+
+        }
+
+        private void Contact_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            HelperValidation.ValidationHelper.NoSpaceOnly(sender, e);
+
+        }
+
+        private void Email_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            HelperValidation.ValidationHelper.NoSpaceOnly(sender, e);
+
+        }
+
+        private void Email_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            HelperValidation.ValidationHelper.EmailTextComposition(sender, e);
+
+        }
+
+        private void Contact_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            HelperValidation.ValidationHelper.AllowOnlyNumbers(sender, e);
+
+        }
+
+        private void Username_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            HelperValidation.ValidationHelper.UsernameTextComposition(sender, e);
+
+        }
+
+        private void Username_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            HelperValidation.ValidationHelper.NoSpaceOnly(sender, e);
+
+        }
+
+        private void Email_LostFocus(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

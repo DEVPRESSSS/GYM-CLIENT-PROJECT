@@ -6,7 +6,7 @@ using Microsoft.Win32;
 using System.IO;
 
 using System.Windows;
-
+using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 
 namespace GYM_CLIENT.View.Admin.Forms
@@ -70,7 +70,7 @@ namespace GYM_CLIENT.View.Admin.Forms
         }
         private void UpdateEquipmentRecord()
         {
-            string query = "UPDATE Equipments SET Name = @Name, Quantity = @Quantity, ImageUrl = @ImageUrl WHERE EquipmentId = @EquipmentId";
+            string query = "UPDATE Equipments SET Name = @Name, Quantity = @Quantity, ImageUrl = @ImageUrl, Stat = @Stat WHERE EquipmentId = @EquipmentId";
 
             try
             {
@@ -84,8 +84,6 @@ namespace GYM_CLIENT.View.Admin.Forms
 
                 using (SqlCommand cmd = new SqlCommand(query, sqlConnection))
                 {
-                   
-
                     cmd.Parameters.AddWithValue("@EquipmentId", equipmentId);
                     cmd.Parameters.AddWithValue("@Name", Name.Text);
 
@@ -102,15 +100,20 @@ namespace GYM_CLIENT.View.Admin.Forms
 
                     cmd.Parameters.AddWithValue("@ImageUrl", relativePath);
 
+                    // Convert ComboBox selection to BIT (1 = Available, 0 = Not Available)
+                    string selectedStatus = (Availability.SelectedItem as ComboBoxItem)?.Content.ToString();
+                    bool statValue = selectedStatus == "Available"; // true if Available, false otherwise
+                    cmd.Parameters.AddWithValue("@Stat", statValue);
+
                     int row = cmd.ExecuteNonQuery();
 
                     if (row > 0)
                     {
-                        MessageBox.Show("Equipment updated successfully");
+                        MessageBox.Show("Equipment updated successfully", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                         Clear();
-                        equipmentUpdated?.Invoke(this, new EventArgs()); 
+                        equipmentUpdated?.Invoke(this, new EventArgs());
+                        this.Close();
                     }
-                   
                 }
             }
             catch (Exception ex)
@@ -123,6 +126,7 @@ namespace GYM_CLIENT.View.Admin.Forms
             }
         }
 
+
         string? equipmentId = "";
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -133,7 +137,15 @@ namespace GYM_CLIENT.View.Admin.Forms
                 equipmentId= equipments.EquipmentId;
                 Name.Text = equipments.Name;
                 Quantity.Text = equipments.Quantity;
-                EquipmentPicture.ImageSource = new BitmapImage(new Uri(equipments.ImageUrl, UriKind.Relative));
+                if (!string.IsNullOrWhiteSpace(equipments.ImageUrl))
+                {
+                    EquipmentPicture.ImageSource = new BitmapImage(
+                        new Uri(equipments.ImageUrl, UriKind.RelativeOrAbsolute));
+                }
+                else
+                {
+                    EquipmentPicture.ImageSource = null; // or a default image
+                }
 
             }
 
@@ -144,6 +156,33 @@ namespace GYM_CLIENT.View.Admin.Forms
 
             Name.Text = "";
             Quantity.Text = "";
+        }
+
+        private void Name_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            HelperValidation.ValidationHelper.UsernameTextComposition(sender, e);
+
+        }
+
+        private void Name_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+
+        }
+
+        private void Quantity_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+
+            HelperValidation.ValidationHelper.AllowOnlyNumbers(sender, e);
+
+
+
+
+        }
+
+        private void Quantity_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            HelperValidation.ValidationHelper.NoSpaceOnly(sender, e);
+
         }
     }
 }

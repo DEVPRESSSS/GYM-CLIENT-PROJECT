@@ -82,7 +82,6 @@ namespace GYM_CLIENT.View.Admin.Forms
             try
             {
                 sqlConnection.Open();
-                string? selectedTrainee = Trainee?.SelectedValue?.ToString();
 
 
 
@@ -122,7 +121,7 @@ namespace GYM_CLIENT.View.Admin.Forms
                         Clear();
                         equipmentCreated?.Invoke(this, new EventArgs());
                         sqlConnection.Close();
-
+                        this.Close();
                     }
 
 
@@ -145,6 +144,30 @@ namespace GYM_CLIENT.View.Admin.Forms
 
             Name.Text = "";
             Quantity.Text = "";
+        }
+
+        private void Quantity_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            HelperValidation.ValidationHelper.AllowOnlyNumbers(sender, e);
+
+        }
+
+        private void Quantity_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            HelperValidation.ValidationHelper.NoSpaceOnly(sender, e);
+
+        }
+
+        private void Name_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            HelperValidation.ValidationHelper.PersonNameTextComposition(sender, e);
+
+        }
+
+        private void Name_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            HelperValidation.ValidationHelper.PersonNameTextKeyDown(sender, e);
+
         }
     }
 }

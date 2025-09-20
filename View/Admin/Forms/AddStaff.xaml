@@ -129,17 +129,28 @@
                                             <!--Client-->
                                             <Label Content="Staff name*"/>
 
-                                            <TextBox x:Name="Name"/>
+                                            <TextBox x:Name="Name" MaxLength="30" Style="{StaticResource TextBoxes}"
+                                                     />
 
                                             <!--Contact-->
                                             <Label Content="Contact*"/>
 
-                                            <TextBox x:Name="Contact"/>
+                                            <TextBox x:Name="Contact" 
+                                                     MaxLength="11" 
+                                                     PreviewTextInput="Contact_PreviewTextInput"
+                                                     PreviewKeyDown="Contact_PreviewKeyDown"
+                                                     Style="{StaticResource TextBoxes}"/>
 
                                             <!--Gmail-->
                                             <Label Content="Gmail*"/>
 
-                                            <TextBox x:Name="Email"/>
+                                            <TextBox x:Name="Email"
+                                                     PreviewTextInput="Email_PreviewTextInput"
+                                                     PreviewKeyDown="Email_PreviewKeyDown"
+                                                     MaxLength="25" 
+                                                     LostFocus="Email_LostFocus"
+                                                     Style="{StaticResource TextBoxes}"
+                                                     />
 
                                         </StackPanel>
 
@@ -153,12 +164,19 @@
                                             <!--Username-->
                                             <Label Content="Username"/>
 
-                                            <TextBox x:Name="Username"/>
+                                            <TextBox x:Name="Username" 
+                                                     MaxLength="25"
+                                                     PreviewTextInput="Username_PreviewTextInput"
+                                                     PreviewKeyDown="Username_PreviewKeyDown"
+                                                     Style="{StaticResource TextBoxes}"/>
 
                                             <!--Password-->
                                             <Label Content="Password*"/>
 
-                                            <TextBox x:Name="Password"/>
+                                            <TextBox x:Name="Password"
+                                                     MaxLength="20"
+                                                     PreviewKeyDown="Password_PreviewKeyDown"
+                                                     Style="{StaticResource TextBoxes}"/>
 
 
                                             <!--Role-->

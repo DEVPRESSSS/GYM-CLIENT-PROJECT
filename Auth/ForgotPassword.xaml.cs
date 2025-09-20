@@ -129,7 +129,7 @@ namespace GYM_CLIENT.Auth
                 var smtpClient = new SmtpClient("alicantejannet5@gmail.com")
                 {
                     Port = 587,
-                    Credentials = new NetworkCredential("alicantejannet5@gmail.com", "pytBikjothap3rafko"),
+                    Credentials = new NetworkCredential("alicantejannet5@gmail.com", "rsvx lqtn tgcq txps"),
                     EnableSsl = true,
                 };
 

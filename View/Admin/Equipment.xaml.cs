@@ -142,7 +142,7 @@ namespace GYM_CLIENT.View.Admin
                         IsAvailable = Convert.ToBoolean(reader["Stat"]),
                         Quantity = reader["Quantity"].ToString(),
                         ImageUrl = reader["ImageUrl"].ToString(),
-                        Created =(DateTime) reader["Created"],
+                       Created = (DateTime) reader["Created"],
 
                     });
 

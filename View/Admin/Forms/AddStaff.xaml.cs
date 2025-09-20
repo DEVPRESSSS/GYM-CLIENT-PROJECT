@@ -57,6 +57,15 @@ namespace GYM_CLIENT.View.Admin.Forms
                 sqlConnection.Open();
                 string? selectedPlanId = Role?.SelectedValue?.ToString();
 
+                if (Contact.Text.Length < 11)
+                {
+
+                    MessageBox.Show($"Contact must be 11 numbers", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+
+
                 if (string.IsNullOrWhiteSpace(Name.Text) || (string.IsNullOrWhiteSpace(Contact.Text)) || (string.IsNullOrWhiteSpace(Username.Text))
                     || (string.IsNullOrWhiteSpace(Password.Text)) || (string.IsNullOrWhiteSpace(Email.Text)))
                 {
@@ -82,6 +91,12 @@ namespace GYM_CLIENT.View.Admin.Forms
                     {
                         MessageBox.Show("Client inserted successfully");
                         staffCreated?.Invoke(this, new EventArgs());
+
+                        Name.Text = "";
+                        Contact.Text = "";
+                        Email.Text = "";
+                        Password.Text = "";
+                        Username.Text = "";
                     }
 
 
@@ -89,9 +104,9 @@ namespace GYM_CLIENT.View.Admin.Forms
                 }
 
               }
-            catch
+            catch(Exception ex)
             {
-                MessageBox.Show($"Staff Name is already exist", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Error{ex}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 sqlConnection.Close();
 
             }
@@ -109,5 +124,54 @@ namespace GYM_CLIENT.View.Admin.Forms
 
 
         }
+
+        private void Username_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            HelperValidation.ValidationHelper.UsernameTextComposition(sender, e);
+
+        }
+
+        private void Username_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            HelperValidation.ValidationHelper.NoSpaceOnly(sender, e);
+
+        }
+
+        private void Password_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            HelperValidation.ValidationHelper.NoSpaceOnly(sender, e);
+
+        }
+
+        private void Contact_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            HelperValidation.ValidationHelper.AllowOnlyNumbers(sender, e);
+
+        }
+
+        private void Contact_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            HelperValidation.ValidationHelper.NoSpaceOnly(sender, e);
+
+        }
+
+        private void Email_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            HelperValidation.ValidationHelper.EmailTextComposition(sender, e);
+
+        }
+
+        private void Email_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            HelperValidation.ValidationHelper.NoSpaceOnly(sender, e);
+
+        }
+
+        private void Email_LostFocus(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        
     }
 }

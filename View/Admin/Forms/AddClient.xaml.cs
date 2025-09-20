@@ -55,6 +55,12 @@ namespace GYM_CLIENT.Model
                 string? selectedPlanId = Membership?.SelectedValue?.ToString();
                 string? selectedTrainee = Trainee?.SelectedValue?.ToString();
 
+                if(Contact.Text.Length < 11)
+                {
+
+                    MessageBox.Show($"Contact must be 11 numbers", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
 
 
 
@@ -80,7 +86,10 @@ namespace GYM_CLIENT.Model
                     {
                         MessageBox.Show("Client inserted successfully");
                         Clear(); 
+
                         clientCreated?.Invoke(this, new EventArgs());
+                        sqlConnection.Close();
+
                     }
 
 
@@ -88,9 +97,9 @@ namespace GYM_CLIENT.Model
                 }
 
             }
-            catch
+            catch (Exception ex) 
             {
-                MessageBox.Show($"Name is already exist", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Error:{ex}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 sqlConnection.Close();
 
             }
@@ -130,6 +139,26 @@ namespace GYM_CLIENT.Model
             CreateClient();
         }
 
- 
+        private void Contact_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+
+        }
+
+        private void Name_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            HelperValidation.ValidationHelper.PersonNameTextComposition(sender, e);
+        }
+
+        private void Name_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            HelperValidation.ValidationHelper.PersonNameTextKeyDown(sender, e);
+
+        }
+
+        private void Contact_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            HelperValidation.ValidationHelper.AllowOnlyNumbers(sender, e);
+
+        }
     }
 }

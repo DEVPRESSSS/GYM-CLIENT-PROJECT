@@ -59,28 +59,24 @@ namespace GYM_CLIENT.HelperValidation
 
         public static void PersonNameTextComposition(object sender, TextCompositionEventArgs e)
         {
+            var regex = new Regex(@"^[a-zA-Z.,\s]+$");
+            e.Handled = !regex.IsMatch(e.Text);
+        }
+
+        public static void PersonNameTextKeyDown(object sender, KeyEventArgs e)
+        {
+
             TextBox textBox = sender as TextBox;
-            char inputChar = e.Text[0];
-
-            if (!char.IsLetter(inputChar) && inputChar != ' ')
+            if (textBox != null && e.Key == Key.Space)
             {
-                e.Handled = true;
-                return;
-            }
+                if (string.IsNullOrEmpty(textBox.Text) || textBox.Text.EndsWith(" "))
+                {
+                    e.Handled = true;
 
-            // Prevent multiple consecutive spaces
-            if (inputChar == ' ' && textBox.Text.EndsWith(" "))
-            {
-                e.Handled = true;
-                return;
-            }
-
-            // Prevent starting with space
-            if (inputChar == ' ' && textBox.Text.Length == 0)
-            {
-                e.Handled = true;
+                }
             }
         }
+
 
     }
 }

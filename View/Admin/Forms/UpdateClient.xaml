@@ -17,7 +17,6 @@
     <Border CornerRadius="10" Background="White" BorderThickness="1" BorderBrush="Gray">
 
         <!---->
-
         <Grid>
 
             <Grid.RowDefinitions>
@@ -130,12 +129,22 @@
                                             <!--Client-->
                                             <Label Content="Client name*"/>
 
-                                            <TextBox x:Name="Name"/>
+                                            <TextBox x:Name="Name"
+                                                     PreviewTextInput="Name_PreviewTextInput"
+                                                     PreviewKeyDown="Name_PreviewKeyDown"
+                                                     Style="{StaticResource TextBoxes}"
+                                                     MaxLength="30"
+                                                     />
 
                                             <!--Contact-->
                                             <Label Content="Contact*"/>
 
-                                            <TextBox x:Name="Contact"/>
+                                            <TextBox x:Name="Contact"
+                                                     MaxLength="11"
+                                                     PreviewKeyDown="Contact_PreviewKeyDown"
+                                                     PreviewTextInput="Contact_PreviewTextInput"
+                                                     Style="{StaticResource TextBoxes}"
+                                                     />
 
 
 

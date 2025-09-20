@@ -36,6 +36,14 @@ namespace GYM_CLIENT.View.Admin
         private void StaffBtn_Click(object sender, RoutedEventArgs e)
         {
             AddStaff addStaff = new AddStaff();
+            addStaff.staffCreated += (s, e) =>
+            {
+
+                FetchAllStaff();
+
+            };
+
+
             addStaff.ShowDialog();
             
         }
@@ -74,12 +82,13 @@ namespace GYM_CLIENT.View.Admin
                                c.Contact,
                                c.Email,
                                c.Role,
-                               t.RoleName, -- get the readable name from Role table
+                               t.RoleName,
                                c.Created,
                                c.Username,
                                c.Password
                         FROM Staff c
-                        LEFT JOIN Role t ON c.Role = t.RoleId";
+                        LEFT JOIN Role t ON c.Role = t.RoleId
+                        WHERE Role = 'ROLE-102'";
             try
             {
                 sqlConnection.Open();

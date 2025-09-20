@@ -1,4 +1,5 @@
-﻿using GYM_CLIENT.View.Admin;
+﻿using GYM_CLIENT.Auth;
+using GYM_CLIENT.View.Admin;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -108,6 +109,22 @@ namespace GYM_CLIENT
         private void Settings_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void Logout_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult dialogResult = MessageBox.Show("Are you sure you want to logout?", "Confirmation", MessageBoxButton.YesNo,MessageBoxImage.Question);
+
+            if(dialogResult == MessageBoxResult.Yes)
+            {
+                var logout = new Login();
+                logout.Show();
+                this.Close();
+
+            }
+
+
+           
         }
     }
 }

@@ -131,13 +131,20 @@
                                                 Content="Name*"/>
 
                                             <TextBox 
-                                                x:Name="Name"/>
+                                                x:Name="Name" MaxLength="30"
+                                                Style="{StaticResource TextBoxes}"
+                                                PreviewTextInput="Name_PreviewTextInput"
+                                                PreviewKeyDown="Name_PreviewKeyDown"
+                                                />
 
                                             <!--Contact-->
                                             <Label 
                                                 Content="Quantity*"/>
 
-                                            <TextBox x:Name="Quantity"/>
+                                            <TextBox x:Name="Quantity" MaxLength="2"
+                                                     Style="{StaticResource TextBoxes}"
+                                                     PreviewTextInput="Quantity_PreviewTextInput"
+                                                     PreviewKeyDown="Quantity_PreviewKeyDown"/>
 
 
                                         </StackPanel>
@@ -149,13 +156,13 @@
 
                                         <StackPanel Orientation="Vertical">
 
-                                            <!--Trainee-->
+                                            <!--Trainee--><!--
                                             <Label Content="Status*"/>
 
                                             <ComboBox x:Name="Trainee"
                                                    DisplayMemberPath="Name"
                                                    SelectedValuePath="TraineerId"
-                                                  />
+                                                  />-->
 
                                             <Border Width="100" 
                                                 Height="100"

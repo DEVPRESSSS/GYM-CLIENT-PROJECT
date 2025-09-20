@@ -86,6 +86,13 @@ namespace GYM_CLIENT.View.Admin.Forms
                 string? selectedPlanId = Membership?.SelectedValue?.ToString();
                 string? selectedTrainee = Trainee?.SelectedValue?.ToString();
 
+                if (Contact.Text.Length < 11)
+                {
+
+                    MessageBox.Show($"Contact must be 11 numbers", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
                 if (string.IsNullOrWhiteSpace(Name?.Text) || string.IsNullOrWhiteSpace(Contact?.Text))
                 {
                     MessageBox.Show("Full Name and Contact are required.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -107,6 +114,7 @@ namespace GYM_CLIENT.View.Admin.Forms
                         MessageBox.Show("Client updated successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                         Clear();
                         clientUpdated?.Invoke(this, EventArgs.Empty); 
+                        this.Close();
                     }
                     else
                     {
@@ -152,6 +160,29 @@ namespace GYM_CLIENT.View.Admin.Forms
         private void LoginBtn_Click(object sender, RoutedEventArgs e)
         {
             UpdateInfoClient();
+        }
+
+        private void Name_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            HelperValidation.ValidationHelper.PersonNameTextComposition(sender, e);
+
+        }
+
+        private void Name_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            HelperValidation.ValidationHelper.PersonNameTextKeyDown(sender, e);
+
+        }
+
+        private void Contact_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+
+        }
+
+        private void Contact_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            HelperValidation.ValidationHelper.AllowOnlyNumbers(sender, e);
+
         }
     }
 }

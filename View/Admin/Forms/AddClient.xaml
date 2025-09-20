@@ -130,12 +130,21 @@
                                             <!--Client-->
                                             <Label Content="Client name*"/>
 
-                                            <TextBox x:Name="Name"/>
+                                            <TextBox x:Name="Name"
+                                                     PreviewTextInput="Name_PreviewTextInput"
+                                                     PreviewKeyDown="Name_PreviewKeyDown"
+                                                     MaxLength="30"
+                                                     Style="{StaticResource TextBoxes}"
+                                                     />
 
                                             <!--Contact-->
                                             <Label Content="Contact*"/>
 
-                                            <TextBox x:Name="Contact"/>
+                                            <TextBox x:Name="Contact"
+                                                     MaxLength="11"
+                                                     PreviewTextInput="Contact_PreviewTextInput"
+                                                     PreviewKeyDown="Contact_PreviewKeyDown"
+                                                     Style="{StaticResource TextBoxes}"/>
 
 
                                         </StackPanel>

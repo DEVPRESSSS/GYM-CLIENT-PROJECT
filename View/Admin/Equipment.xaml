@@ -54,13 +54,13 @@
                               Foreground="White"
                              />
                             <Icon:PackIconMaterial 
-                          x:Name="IconAdd"
-                          Kind="Plus" 
-                          Height="10"
-                          Width="10"
-                          Margin="0"
-                          Foreground="White"
-                          Style="{StaticResource WindowControlIcon}" />
+                              x:Name="IconAdd"
+                              Kind="Plus" 
+                              Height="10"
+                              Width="10"
+                              Margin="0"
+                              Foreground="White"
+                              Style="{StaticResource WindowControlIcon}" />
                         </StackPanel>
                     </Button>
 
@@ -82,8 +82,17 @@
                         <DataGridTextColumn Header="EquipmentId" CanUserResize="False"  Binding="{Binding EquipmentId}" IsReadOnly="True" Width="*"/>
                         <DataGridTextColumn Header="Name" CanUserResize="False"  Binding="{Binding Name}" IsReadOnly="True" Width="*"/>
                         <DataGridTextColumn Header="Quantity" CanUserResize="False"  Binding="{Binding Quantity}" IsReadOnly="True" Width="*"/>
-                        <DataGridTextColumn Header="Status" CanUserResize="False"  Binding="{Binding IsAvailable}" IsReadOnly="True" Width="*"/>
-                        <DataGridTextColumn Header="Image" CanUserResize="False"  Binding="{Binding ImageUrl}" IsReadOnly="True" Width="*"/>
+                        <DataGridTextColumn Header="Available" CanUserResize="False"  Binding="{Binding IsAvailable}" IsReadOnly="True" Width="*"/>
+                        <!--<DataGridTemplateColumn Header="Image" Width="100" IsReadOnly="True" CanUserResize="False">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Image x:Name="Img" Source="{Binding ImageUrl}" 
+                                       Width="60" Height="60"
+                                       Stretch="UniformToFill"
+                                       Margin="5"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>-->
 
                         <DataGridTemplateColumn Header="Action" CanUserResize="False" IsReadOnly="True" Width="*">
                             <DataGridTemplateColumn.CellTemplate>

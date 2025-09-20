@@ -129,17 +129,33 @@
                                             <!--Client-->
                                             <Label Content="Staff name*"/>
 
-                                            <TextBox x:Name="Name"/>
+                                            <TextBox x:Name="Name" 
+                                                     MaxLength="30"
+                                                     PreviewTextInput="Name_PreviewTextInput"
+                                                     PreviewKeyDown="Name_PreviewKeyDown"
+                                                     Style="{StaticResource TextBoxes}"
+          />
 
                                             <!--Contact-->
                                             <Label Content="Contact*"/>
 
-                                            <TextBox x:Name="Contact"/>
+                                            <TextBox x:Name="Contact" 
+                                                  MaxLength="11" 
+                                                  PreviewTextInput="Contact_PreviewTextInput"
+                                                  PreviewKeyDown="Contact_PreviewKeyDown"
+                                                  Style="{StaticResource TextBoxes}"
+                                                  />
 
                                             <!--Gmail-->
                                             <Label Content="Gmail*"/>
 
-                                            <TextBox x:Name="Email"/>
+                                            <TextBox x:Name="Email"
+                                                  PreviewKeyDown="Email_PreviewKeyDown"
+                                                  PreviewTextInput="Email_PreviewTextInput"
+                                                  MaxLength="25" 
+                                                  LostFocus="Email_LostFocus"
+                                                  Style="{StaticResource TextBoxes}"
+                                                  />
 
                                         </StackPanel>
 
@@ -153,12 +169,14 @@
                                             <!--Username-->
                                             <Label Content="Username"/>
 
-                                            <TextBox x:Name="Username"/>
+                                            <TextBox x:Name="Username"
+                                                     PreviewTextInput="Username_PreviewTextInput"
+                                                     PreviewKeyDown="Username_PreviewKeyDown"
+                                                     MaxLength="25"
+                                                     Style="{StaticResource TextBoxes}"
+                                                     />
 
-                                            <!--Password-->
-                                            <Label Content="Password*"/>
-
-                                            <TextBox x:Name="Password"/>
+                             
 
 
                                             <!--Role-->

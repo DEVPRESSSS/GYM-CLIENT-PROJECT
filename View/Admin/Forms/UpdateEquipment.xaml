@@ -130,16 +130,23 @@
 
                                             <!--Client-->
                                             <Label 
-                                            Content="Name*"/>
+                                                 Content="Name*"/>
 
                                             <TextBox 
-                                            x:Name="Name"/>
+                                                  x:Name="Name" MaxLength="30"
+                                                  Style="{StaticResource TextBoxes}"
+                                                  PreviewTextInput="Name_PreviewTextInput"
+                                                  PreviewKeyDown="Name_PreviewKeyDown"
+                                                  />
 
                                             <!--Contact-->
                                             <Label 
-                                            Content="Quantity*"/>
+                                                 Content="Quantity*"/>
 
-                                            <TextBox x:Name="Quantity"/>
+                                            <TextBox x:Name="Quantity" MaxLength="2"
+                                                   Style="{StaticResource TextBoxes}"
+                                                   PreviewTextInput="Quantity_PreviewTextInput"         
+                                                   PreviewKeyDown="Quantity_PreviewKeyDown"/>
 
 
                                         </StackPanel>
@@ -154,10 +161,11 @@
                                             <!--Trainee-->
                                             <Label Content="Status*"/>
 
-                                            <ComboBox x:Name="Trainee"
-                                               DisplayMemberPath="Name"
-                                               SelectedValuePath="TraineerId"
-                                              />
+                                            <ComboBox x:Name="Availability" Width="200">
+                                                <ComboBoxItem Content="Available"/>
+                                                <ComboBoxItem Content="Not Available"/>
+                                            </ComboBox>
+
 
                                             <Border Width="100" 
                                             Height="100"

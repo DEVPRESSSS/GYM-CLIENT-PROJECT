@@ -176,7 +176,15 @@
 
                             <!--Logout-->
 
-
+                            <Button x:Name="Logout" Style="{StaticResource menuButton}"  Margin="5"
+                                    Cursor="Hand" 
+                                    Width="160"
+                                    Click="Logout_Click">
+                                <StackPanel Orientation="Horizontal">
+                                    <Icon:PackIconMaterial Kind="Logout" Style="{StaticResource menuButtonIcon}"/>
+                                    <TextBlock Text="LogOut"  FontFamily="Roboto"/>
+                                </StackPanel>
+                            </Button>
 
                         </StackPanel>
                     </Border>
