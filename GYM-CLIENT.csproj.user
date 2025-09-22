@@ -43,6 +43,9 @@
     <Compile Update="View\Admin\Forms\CameraWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\Admin\Forms\PaymentForm.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\Admin\Forms\Plans.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -53,6 +56,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\Admin\Forms\UpdateStaff.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\Admin\Payments.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\Admin\Staff.xaml.cs">
@@ -102,6 +108,9 @@
     <Page Update="View\Admin\Forms\CameraWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="View\Admin\Forms\PaymentForm.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="View\Admin\Forms\Plans.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -112,6 +121,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\Admin\Forms\UpdateStaff.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\Admin\Payments.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\Admin\Staff.xaml">

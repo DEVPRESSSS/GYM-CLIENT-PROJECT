@@ -85,12 +85,12 @@
 
                                     <!--Close button-->
                                     <Button x:Name="CloseBtn"
-                                   Style="{StaticResource MinimizeButtonStyle}"
-                                   Grid.Column="1"
-                                   HorizontalAlignment="Right"
-                                   Margin="0,0,4,0"
-                                   Cursor="Hand"
-                                   Click="CloseBtn_Click">
+                                       Style="{StaticResource MinimizeButtonStyle}"
+                                       Grid.Column="1"
+                                       HorizontalAlignment="Right"
+                                       Margin="0,0,4,0"
+                                       Cursor="Hand"
+                                       Click="CloseBtn_Click">
 
 
                                         <Icon:PackIconMaterial 
@@ -139,7 +139,8 @@
                                                      MaxLength="11" 
                                                      PreviewTextInput="Contact_PreviewTextInput"
                                                      PreviewKeyDown="Contact_PreviewKeyDown"
-                                                     Style="{StaticResource TextBoxes}"/>
+                                                     Style="{StaticResource TextBoxes}"
+                                                     />
 
                                             <!--Gmail-->
                                             <Label Content="Gmail*"/>

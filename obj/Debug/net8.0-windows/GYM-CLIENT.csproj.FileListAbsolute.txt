@@ -157,3 +157,7 @@ D:\ASP_PROJECTS\GYM-CLIENT\obj\Debug\net8.0-windows\refint\GYM-CLIENT.dll
 D:\ASP_PROJECTS\GYM-CLIENT\obj\Debug\net8.0-windows\GYM-CLIENT.pdb
 D:\ASP_PROJECTS\GYM-CLIENT\obj\Debug\net8.0-windows\GYM-CLIENT.genruntimeconfig.cache
 D:\ASP_PROJECTS\GYM-CLIENT\obj\Debug\net8.0-windows\ref\GYM-CLIENT.dll
+D:\ASP_PROJECTS\GYM-CLIENT\obj\Debug\net8.0-windows\View\Admin\Payments.g.cs
+D:\ASP_PROJECTS\GYM-CLIENT\obj\Debug\net8.0-windows\View\Admin\Payments.baml
+D:\ASP_PROJECTS\GYM-CLIENT\obj\Debug\net8.0-windows\View\Admin\Forms\PaymentForm.g.cs
+D:\ASP_PROJECTS\GYM-CLIENT\obj\Debug\net8.0-windows\View\Admin\Forms\PaymentForm.baml

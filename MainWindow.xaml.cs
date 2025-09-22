@@ -92,6 +92,7 @@ namespace GYM_CLIENT
 
         private void Payments_Click(object sender, RoutedEventArgs e)
         {
+            MainContentArea.Content = new Payments();
 
         }
 
