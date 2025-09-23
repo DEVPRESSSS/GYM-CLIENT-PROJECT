@@ -86,6 +86,7 @@
                         <DataGridTextColumn Header="Contact" CanUserResize="False"  Binding="{Binding Contact}" IsReadOnly="True" Width="*"/>
                         <DataGridTextColumn Header="Trainee" CanUserResize="False"  Binding="{Binding TraineeName}" IsReadOnly="True" Width="*"/>
                         <DataGridTextColumn Header="Plan" CanUserResize="False"  Binding="{Binding PlanName}" IsReadOnly="True" Width="*"/>
+                        <DataGridTextColumn Header="PlanDaysLeft" CanUserResize="False"  Binding="{Binding DaysLeft}" IsReadOnly="True" Width="*"/>
                         <DataGridTemplateColumn Header="AccessCard" CanUserResize="False" IsReadOnly="True" Width="*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>

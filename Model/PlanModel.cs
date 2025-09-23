@@ -12,6 +12,8 @@ namespace GYM_CLIENT.Model
         public string? PlanId { get; set; }
         public string? PlanName { get; set; }
         public decimal? Price { get; set; }
+
+        public int Duration { get; set; }
         public DateOnly? SOD { get; set; }
         public DateOnly? SOE { get; set; }
         public DateOnly? Created { get; set; }

@@ -47,7 +47,8 @@ namespace GYM_CLIENT.Model
 
         private void CreateClient()
         {
-            string query = "INSERT INTO Client (ClientId,FullName,Contact,TrainerId,PlanId)VALUES(@ClientId,@FullName,@Contact,@TrainerId,@PlanId)";
+            string query = @"INSERT INTO Client (ClientId,FullName,Contact,TrainerId,PlanId,PlanStarted,PlanEnded)
+            VALUES(@ClientId,@FullName,@Contact,@TrainerId,@PlanId,@PlanStarted,@PlanEnded)";
 
             try
             {
@@ -55,10 +56,29 @@ namespace GYM_CLIENT.Model
                 string? selectedPlanId = Membership?.SelectedValue?.ToString();
                 string? selectedTrainee = Trainee?.SelectedValue?.ToString();
 
+                if(selectedPlanId == null)
+                {
+
+                    MessageBox.Show("Membership is required", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    sqlConnection.Close();
+
+                    return;
+                }
+
+                var duration = _service.FetchDaysOfPlan(selectedPlanId);
+                if (duration == 0)
+                {
+                    return;
+                }
+
+                
+
                 if(Contact.Text.Length < 11)
                 {
 
                     MessageBox.Show($"Contact must be 11 numbers", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    sqlConnection.Close();
+
                     return;
                 }
 
@@ -69,6 +89,8 @@ namespace GYM_CLIENT.Model
                     MessageBox.Show($"All fields are required", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
+                var planStarted = DateTime.Today;
+                var planEnded = DateTime.Today.AddDays(duration); 
 
                 using (SqlCommand cmd = new SqlCommand(query, sqlConnection))
                 {
@@ -78,7 +100,9 @@ namespace GYM_CLIENT.Model
                     cmd.Parameters.AddWithValue("@Contact", Contact.Text);
                     cmd.Parameters.AddWithValue("@TrainerId", string.IsNullOrEmpty(selectedTrainee) ? (object)DBNull.Value : selectedTrainee);
                     cmd.Parameters.AddWithValue("@PlanId", string.IsNullOrEmpty(selectedPlanId) ? (object)DBNull.Value : selectedPlanId);
-
+                    cmd.Parameters.AddWithValue("@PlanStarted", planStarted);
+                    cmd.Parameters.AddWithValue("@PlanEnded",planEnded);
+                   
 
                     int row = cmd.ExecuteNonQuery();
 
@@ -97,14 +121,13 @@ namespace GYM_CLIENT.Model
                 }
 
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 MessageBox.Show($"Error:{ex}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 sqlConnection.Close();
 
             }
         }
-
         private void MembershipPlan()
         {
 
@@ -113,7 +136,7 @@ namespace GYM_CLIENT.Model
             Membership.ItemsSource = plans;
             Membership.DisplayMemberPath = "PlanName";
             Membership.SelectedValuePath = "PlanId";
-
+            
 
         }
         private void GetAllTrainee()
@@ -160,5 +183,7 @@ namespace GYM_CLIENT.Model
             HelperValidation.ValidationHelper.AllowOnlyNumbers(sender, e);
 
         }
+
+       
     }
 }

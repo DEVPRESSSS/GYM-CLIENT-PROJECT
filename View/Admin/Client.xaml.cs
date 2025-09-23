@@ -85,15 +85,16 @@ namespace GYM_CLIENT.View.Admin
                                     c.Contact,
                                     c.TrainerId,
                                     c.hasAccessCard,
+                                    DATEDIFF(DAY, GETDATE(), c.PlanEnded) AS DaysLeft,
                                     t.Name AS TrainerName,
                                     c.PlanId,
                                     p.PlanName
                                 FROM Client c
                                 LEFT JOIN Trainee t ON c.TrainerId = t.TraineerId
                                 LEFT JOIN [Plan] p ON c.PlanId = p.Id";
-            try
-            {
-                sqlConnection.Open();
+                    try
+                    {
+                        sqlConnection.Open();
 
                         SqlCommand cmd = new SqlCommand(query, sqlConnection);
                         SqlDataReader reader = cmd.ExecuteReader();
@@ -109,9 +110,12 @@ namespace GYM_CLIENT.View.Admin
                                 hasAccessCard = reader["hasAccessCard"] != DBNull.Value && Convert.ToBoolean(reader["hasAccessCard"]),
                                 TraineeName = reader["TrainerName"].ToString(),
                                 PlanId = reader["PlanId"].ToString(),
-                                PlanName = reader["PlanName"].ToString()
+                                PlanName = reader["PlanName"].ToString(),
+                                DaysLeft = reader["DaysLeft"] != DBNull.Value
+                                ? Convert.ToInt32(reader["DaysLeft"])
+                                : 0,
 
-                            });
+                           });
 
                         }
 
@@ -119,7 +123,7 @@ namespace GYM_CLIENT.View.Admin
                         reader.Close();
                         sqlConnection.Close();
 
-                     }
+                    }
                     catch
                     {
                         MessageBox.Show($"Error while retrieving", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -161,6 +165,8 @@ namespace GYM_CLIENT.View.Admin
                     catch (Exception Ex)
                     {
                         MessageBox.Show(Ex.Message);
+                        sqlConnection.Close();
+
                     }
 
                 }

@@ -6,12 +6,13 @@
         xmlns:local="clr-namespace:GYM_CLIENT.View.Admin.Forms" xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
         Title="PaymentForm" 
-        Height="490" 
+        Height="540" 
         Width="300"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         AllowsTransparency="True"
         Background="Transparent"
+        Loaded="Window_Loaded"
         >
 
     <Border Background="#F4F5F6"
@@ -26,7 +27,7 @@
 
                 <RowDefinition Height="40"/>
                 <RowDefinition/>
-                <RowDefinition Height="300"/>
+                <RowDefinition Height="340"/>
                 <RowDefinition Height="50"/>
 
             </Grid.RowDefinitions>
@@ -76,7 +77,7 @@
 
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
-                        <ColumnDefinition Width="140"/>
+                        <ColumnDefinition Width="190"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     
@@ -84,7 +85,7 @@
                     <Border BorderBrush="Gray"
                             Background="White"
                             BorderThickness="0.5"
-                            Margin="6"
+                            Margin="3"
                             Grid.Column="1"
                              CornerRadius="10" >
 
@@ -105,38 +106,50 @@
                     >
                 <StackPanel Orientation="Vertical">
                      <!--Client name-->
-                     <Label Content="Client(Optional if client is not member)"/>
-                    <TextBox Style="{StaticResource TextBoxes}"
+                     <Label Content="Client(ReadOnly)"/>
+                    <TextBox x:Name="ClientName" IsReadOnly="True" Style="{StaticResource TextBoxes}"
                              MaxLength="30"
                              />
 
                       <!--PaymentType-->
                       <Label Content="PaymentType"/>
-                    <ComboBox Height="30">
+                    <ComboBox x:Name="PaymentType" Height="30" SelectedValuePath="Content">
                         <ComboBoxItem Content="Cash"/>
                         <ComboBoxItem Content="Gcash"/>
                     </ComboBox>
 
+
                     <!--PlanName-->
                     <Label Content="Membership Price"/>
-                    <TextBox IsReadOnly="True" Style="{StaticResource TextBoxes}"
+                    <TextBox x:Name="MembershipPrice" IsReadOnly="True" Style="{StaticResource TextBoxes}"
                       MaxLength="6"
                       />
 
 
                     <!--Client name-->
                     <Label Content="Amount"/>
-                    <TextBox Style="{StaticResource TextBoxes}"
-                         MaxLength="6"
+                    <TextBox x:Name="Amount" Style="{StaticResource TextBoxes}"
+                         MaxLength="4"
+                          PreviewKeyDown="Amount_PreviewKeyDown"
+                          TextChanged="Amount_TextChanged_1"
+                             PreviewTextInput="Amount_PreviewTextInput"
                          />
 
                     <!--Change-->
-                    <Label Content="Change"/>
-                    <TextBox IsReadOnly="True"
+                    <Label Content="Change(ReadOnly)"/>
+                    <TextBox x:Name="Change" IsReadOnly="True"
                       Style="{StaticResource TextBoxes}"
                       MaxLength="6"
                       />
 
+
+                    <!--Change-->
+                    <Label Content="Days left for Membership(Readonly)"/>
+                    <TextBox x:Name="DaysleftTxt" IsReadOnly="True"
+                      Style="{StaticResource TextBoxes}"
+                             TextChanged="DaysleftTxt_TextChanged"
+                      MaxLength="3"
+                      />
 
                 </StackPanel>
               

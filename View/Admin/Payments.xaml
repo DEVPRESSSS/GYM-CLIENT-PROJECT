@@ -5,7 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:GYM_CLIENT.View.Admin" xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" 
+             d:DesignWidth="800"
+             Loaded="UserControl_Loaded"
+             >
 
     <Border Background="#F4F5F6">
 
@@ -25,44 +28,70 @@
                     CornerRadius="5"
                     Margin="2"
                     >
-    
-                <!--<TextBlock Text="Payment List"
-                           FontSize="16"
-                           Foreground="#313638"
-                           FontFamily="Open Sans"
-                           Margin="3"
-                           HorizontalAlignment="Left"
-                           VerticalAlignment="Center"
-                           FontWeight="Bold"                          
-                           />
-                --><!-- Right-aligned New Button -->
-                <Button x:Name="NewClientButton"
-                     Style="{StaticResource CrudButton}"
-                     Cursor="Hand"
-                     Margin="0,0,10,0"
-                     Width="90"
-                     BorderThickness="0"
-                     Background="#0b8707"
-                     Grid.Column="1"
-                     HorizontalAlignment="Right"
-                     Click="NewClientButton_Click">
 
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                        <TextBlock Text="New Payment" 
-                            VerticalAlignment="Center"
-                             Margin="0,0,5,0"
-                             Foreground="White"
-                            />
-                        <Icon:PackIconMaterial 
-                             x:Name="IconAdd"
-                             Kind="Plus" 
-                             Height="10"
-                             Width="10"
-                             Margin="0"
-                             Foreground="White"
-                             Style="{StaticResource WindowControlIcon}" />
-                    </StackPanel>
-                </Button>
+                <Grid>
+
+                    <Grid.ColumnDefinitions>
+
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="100"/>
+
+                    </Grid.ColumnDefinitions>
+
+                    <Border Grid.Column="0">
+
+                        <Label Content="Search:" Height="30"
+                                FontSize="16"
+                               HorizontalAlignment="Right"
+                         Margin="4"/>
+
+                    </Border>
+
+                    <Border Grid.Column="1">
+
+                        <TextBox x:Name="Search" Height="30"
+                                 MaxLength="15" 
+                                 FontSize="16"
+                                 TextChanged="Search_TextChanged"
+                                 Margin="4"/>
+
+                    </Border>
+
+                    <Border Grid.Column="2">
+                        <Button x:Name="NewClientButton"
+                          Style="{StaticResource CrudButton}"
+                          Cursor="Hand"
+                          Margin="0,0,10,0"
+                          Width="90"
+                          BorderThickness="0"
+                          Background="#0b8707"
+                          Grid.Column="1"
+                          HorizontalAlignment="Right"
+                          Click="NewClientButton_Click">
+
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <TextBlock Text="New Payment" 
+                                     VerticalAlignment="Center"
+                                      Margin="0,0,5,0"
+                                      Foreground="White"
+                                     />
+                                <Icon:PackIconMaterial 
+                                      x:Name="IconAdd"
+                                      Kind="Plus" 
+                                      Height="10"
+                                      Width="10"
+                                      Margin="0"
+                                      Foreground="White"
+                                      Style="{StaticResource WindowControlIcon}" />     
+                            </StackPanel>
+                        </Button>
+
+                    </Border>
+                    
+                </Grid>
+                
+               
 
 
             </Border>
@@ -87,11 +116,11 @@
                         <DataGrid.Columns>
 
                             <DataGridTextColumn Header="Id" CanUserResize="False"  Binding="{Binding PaymentId}" IsReadOnly="True" Width="*"/>
-                            <DataGridTextColumn Header="Client" CanUserResize="False"  Binding="{Binding ClientName}" IsReadOnly="True" Width="100"/>
+                            <DataGridTextColumn Header="Client" CanUserResize="False"  Binding="{Binding ClientName}" IsReadOnly="True" Width="*"/>
                             <DataGridTextColumn Header="PaymentType" CanUserResize="False"  Binding="{Binding PaymentType}" IsReadOnly="True" Width="*"/>
                             <DataGridTextColumn Header="Contract" CanUserResize="False"  Binding="{Binding PlanName}" IsReadOnly="True" Width="*"/>
                             <DataGridTextColumn Header="Amount" CanUserResize="False"  Binding="{Binding AmountPaid}" IsReadOnly="True" Width="*"/>
-                            <DataGridTextColumn Header="Date" CanUserResize="False"  Binding="{Binding PaymentDate}" IsReadOnly="True" Width="*"/>
+                            <DataGridTextColumn Header="Date" CanUserResize="False"  Binding="{Binding PaymentDate,StringFormat='yyyy-MM-dd'}" IsReadOnly="True" Width="*"/>
                        
                             <!--<DataGridTemplateColumn Header="Action" CanUserResize="False" IsReadOnly="True" Width="*">
                                 <DataGridTemplateColumn.CellTemplate>

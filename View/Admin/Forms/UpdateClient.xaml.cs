@@ -76,7 +76,9 @@ namespace GYM_CLIENT.View.Admin.Forms
                      SET FullName = @FullName, 
                          Contact = @Contact, 
                          TrainerId = @TrainerId, 
-                         PlanId = @PlanId 
+                         PlanId = @PlanId,
+                        PlanStarted= @PlanStarted,
+                        PlanEnded= @PlanEnded
                      WHERE ClientId = @ClientId";
 
             try
@@ -85,19 +87,35 @@ namespace GYM_CLIENT.View.Admin.Forms
 
                 string? selectedPlanId = Membership?.SelectedValue?.ToString();
                 string? selectedTrainee = Trainee?.SelectedValue?.ToString();
+                if (selectedPlanId == null)
+                {
 
+                    MessageBox.Show("Membership is required", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                    return;
+                }
                 if (Contact.Text.Length < 11)
                 {
 
+
                     MessageBox.Show($"Contact must be 11 numbers", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
                     return;
                 }
 
                 if (string.IsNullOrWhiteSpace(Name?.Text) || string.IsNullOrWhiteSpace(Contact?.Text))
                 {
                     MessageBox.Show("Full Name and Contact are required.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    sqlConnection.Close();
+
                     return;
                 }
+
+                var duration = _service.FetchDaysOfPlan(selectedPlanId);
+               
+
+                var planStarted = DateTime.Today;
+                var planEnded = DateTime.Today.AddDays(duration);
 
                 using (SqlCommand cmd = new SqlCommand(query, sqlConnection))
                 {
@@ -106,7 +124,8 @@ namespace GYM_CLIENT.View.Admin.Forms
                     cmd.Parameters.AddWithValue("@Contact", Contact.Text.Trim());
                     cmd.Parameters.AddWithValue("@TrainerId", string.IsNullOrEmpty(selectedTrainee) ? (object)DBNull.Value : selectedTrainee);
                     cmd.Parameters.AddWithValue("@PlanId", string.IsNullOrEmpty(selectedPlanId) ? (object)DBNull.Value : selectedPlanId);
-
+                    cmd.Parameters.AddWithValue("@PlanStarted", planStarted);
+                    cmd.Parameters.AddWithValue("@PlanEnded", planEnded);
                     int rowsAffected = cmd.ExecuteNonQuery();
 
                     if (rowsAffected > 0)

@@ -18,11 +18,13 @@ namespace GYM_CLIENT.Model
             public string? PlanId { get; set; }
 
             public string?  PlanName { get; set; }
+            public Decimal?  Price { get; set; }
             public bool?  hasAccessCard { get; set; }
 
             //AccessCard
             public string? CardNumber { get; set; }
             public DateTime? IssuedDate { get; set; }
             public DateTime? ExpiryDate { get; set; }
+            public int? DaysLeft { get; set; }
     }
 }

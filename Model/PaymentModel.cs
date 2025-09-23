@@ -16,6 +16,7 @@ namespace GYM_CLIENT.Model
         public string? PlanId { get; set; }
         public string? PlanName { get; set; }
         public Decimal? AmountPaid { get; set; }
+        public Decimal? Changed { get; set; }
         public DateTime PaymentDate { get; set; }
     }
 }

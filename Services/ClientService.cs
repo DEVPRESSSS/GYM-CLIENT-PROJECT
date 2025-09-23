@@ -41,7 +41,7 @@ namespace GYM_CLIENT.Services
                     PlanName = reader["PlanName"].ToString(),
 
 
-                });
+                }) ;
 
 
 
@@ -80,6 +80,31 @@ namespace GYM_CLIENT.Services
 
             return plans;
 
+        }
+
+        public int FetchDaysOfPlan(string? PlanId)
+        {
+            int duration = 0;
+
+            string query = "SELECT Duration FROM [Plan] WHERE Id = @Id";
+
+            using (SqlCommand cmd = new SqlCommand(query, sqlConnection))
+            {
+                cmd.Parameters.AddWithValue("@Id", PlanId);
+
+                sqlConnection.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.Read()) 
+                {
+                    duration = Convert.ToInt32(reader["Duration"]);
+                }
+
+                reader.Close();
+                sqlConnection.Close();
+            }
+
+            return duration;
         }
 
 
