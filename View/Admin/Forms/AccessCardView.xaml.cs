@@ -30,6 +30,7 @@ namespace GYM_CLIENT.View.Admin.Forms
     {
         private readonly Connection connection = new Connection();
         private SqlConnection sqlConnection;
+
         public AccessCardView()
         {
             InitializeComponent();
@@ -68,6 +69,7 @@ namespace GYM_CLIENT.View.Admin.Forms
                     cmd.Parameters.AddWithValue("@ClientId", clientId);
 
                     cmd.ExecuteNonQuery();
+
                 }
 
             }

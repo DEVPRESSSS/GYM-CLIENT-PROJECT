@@ -49,7 +49,7 @@ namespace GYM_CLIENT.View.Admin.Forms
         private void CreateStaff()
         {
 
-            string query = "INSERT INTO Staff (StaffId,Name,Contact,Email,Role,Username,Password) VALUES(@StaffId,@Name,@Contact,@Email,@Role,@Username,@Password)";
+            string query = "INSERT INTO Staff (StaffId,Name,Contact,Email,Role,Created,Username,Password) VALUES(@StaffId,@Name,@Contact,@Email,@Role,@Created,@Username,@Password)";
 
 
             try
@@ -83,6 +83,7 @@ namespace GYM_CLIENT.View.Admin.Forms
                     cmd.Parameters.AddWithValue("@Username", Username.Text);
                     cmd.Parameters.AddWithValue("@Password", Password.Text);
                     cmd.Parameters.AddWithValue("@Role", selectedPlanId);
+                    cmd.Parameters.AddWithValue("@Created", DateTime.Now);
 
 
                     int row = cmd.ExecuteNonQuery();

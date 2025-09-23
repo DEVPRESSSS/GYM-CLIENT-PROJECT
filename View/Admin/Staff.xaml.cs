@@ -26,10 +26,13 @@ namespace GYM_CLIENT.View.Admin
     {
         private readonly Connection connection = new Connection();
         private SqlConnection sqlConnection;
+        private CollectionViewSource collectionViewSource;
         public Staff()
         {
             InitializeComponent();
             sqlConnection = new SqlConnection(connection.ConnectionString);
+            collectionViewSource = new CollectionViewSource();
+
             FetchAllStaff();
         }
 
@@ -113,8 +116,9 @@ namespace GYM_CLIENT.View.Admin
                     });
 
                 }
+                collectionViewSource.Source = clientModels;
 
-                StaffGrid.ItemsSource = clientModels;
+                StaffGrid.ItemsSource = collectionViewSource.View;
                 reader.Close();
                 sqlConnection.Close();
 
@@ -167,6 +171,36 @@ namespace GYM_CLIENT.View.Admin
 
                 }
             }
+        }
+        private void Search_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (collectionViewSource?.View != null)
+            {
+                collectionViewSource.View.Filter = item =>
+                {
+                    var staff = item as StaffModel;
+                    if (staff == null) return false;
+
+                    string searchText = Search.Text.Trim().ToLower();
+                    if (string.IsNullOrEmpty(searchText)) return true; 
+
+                    return
+                        (!string.IsNullOrEmpty(staff.StaffId) && staff.StaffId.ToLower().Contains(searchText)) ||
+                        (!string.IsNullOrEmpty(staff.Name) && staff.Name.ToLower().Contains(searchText)) ||
+                        (!string.IsNullOrEmpty(staff.Contact) && staff.Contact.ToLower().Contains(searchText)) ||
+                        (!string.IsNullOrEmpty(staff.Gmail) && staff.Gmail.ToLower().Contains(searchText)) ||
+                        (!string.IsNullOrEmpty(staff.RoleId) && staff.RoleId.ToLower().Contains(searchText)) ||
+                        (!string.IsNullOrEmpty(staff.RoleName) && staff.RoleName.ToLower().Contains(searchText)) ||
+                        (!string.IsNullOrEmpty(staff.Username) && staff.Username.ToLower().Contains(searchText)) ||
+                        (staff.Created.HasValue && staff.Created.Value.ToString("yyyy-MM-dd").Contains(searchText));
+                };
+            }
+        }
+
+
+        private void NewClientButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

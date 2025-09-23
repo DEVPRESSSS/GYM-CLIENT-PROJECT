@@ -25,61 +25,64 @@
              Grid.Row="0">
 
                 <Grid>
+
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <!-- Left-aligned -->
-                        <ColumnDefinition Width="Auto" />
-                        <!-- Right-aligned -->
+
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="100"/>
+
                     </Grid.ColumnDefinitions>
 
-                    <!-- Left-aligned Export Button -->
-                    <Button x:Name="ExportBtn"
-                     Style="{StaticResource CrudButton}"
-                     BorderBrush="Gray"
-                     Cursor="Hand"
-                     BorderThickness="0.5"
-                     Margin="10,0,0,0"
-                     Width="41"
-                     Grid.Column="0"
-                     HorizontalAlignment="Left">
-                        <Icon:PackIconMaterial 
-                     x:Name="MaximizeWindow"
-                     Kind="Printer" 
-                     Height="10" 
-                     Width="12"
-                     Foreground="#313638"
-                     Style="{StaticResource WindowControlIcon}"
-                     Cursor="Hand" />
-                    </Button>
+                    <Border Grid.Column="0">
 
-                    <!-- Right-aligned New Button -->
-                    <Button x:Name="StaffBtn"
-                         Style="{StaticResource CrudButton}"
-                         Cursor="Hand"
-                         Margin="0,0,10,0"
-                         Width="60"
-                         BorderThickness="0"
-                         Background="#0b8707"
-                         Grid.Column="1"
-                         HorizontalAlignment="Right"
-                         Click="StaffBtn_Click">
+                        <Label Content="Search:" Height="30"
+                               FontSize="16"
+                               HorizontalAlignment="Right"
+                               Margin="4"/>
 
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                            <TextBlock Text="Add" 
-                                VerticalAlignment="Center"
-                                Margin="0,0,5,0"
-                                 Foreground="White"
-                                />
-                            <Icon:PackIconMaterial 
-                             x:Name="IconAdd"
-                             Kind="Plus" 
-                             Height="10"
-                             Width="10"
-                             Margin="0"
-                             Foreground="White"
-                             Style="{StaticResource WindowControlIcon}" />
-                        </StackPanel>
-                    </Button>
+                    </Border>
+
+                    <Border Grid.Column="1">
+
+                        <TextBox x:Name="Search" Height="30"
+                         MaxLength="15" 
+                         FontSize="16"
+                         TextChanged="Search_TextChanged"
+                         Margin="4"/>
+
+                    </Border>
+
+                    <Border Grid.Column="2">
+                        <Button x:Name="NewClientButton"
+                          Style="{StaticResource CrudButton}"
+                          Cursor="Hand"
+                          Margin="0,0,10,0"
+                          Width="90"
+                          BorderThickness="0"
+                          Background="#0b8707"
+                          Grid.Column="1"
+                          HorizontalAlignment="Right"
+                          Click="StaffBtn_Click">
+
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <TextBlock Text="New Staff" 
+                                      VerticalAlignment="Center"
+                                      Margin="0,0,5,0"
+                                      Foreground="White"
+                                     />
+                                <Icon:PackIconMaterial 
+                                      x:Name="IconAdd"
+                                      Kind="Plus" 
+                                      Height="10"
+                                      Width="10"
+                                      Margin="0"
+                                      Foreground="White"
+                                      Style="{StaticResource WindowControlIcon}" />
+                            </StackPanel>
+                        </Button>
+
+                    </Border>
 
                 </Grid>
             </Border>
@@ -102,8 +105,7 @@
                         <DataGridTextColumn Header="Contact" CanUserResize="False"  Binding="{Binding Contact}" IsReadOnly="True" Width="*"/>
                         <DataGridTextColumn Header="Role" CanUserResize="False"  Binding="{Binding RoleName}" IsReadOnly="True" Width="*"/>
                         <DataGridTextColumn Header="Username" CanUserResize="False" Binding="{Binding Username}" IsReadOnly="True" Width="*"/>
-                        <DataGridTextColumn Header="Password" CanUserResize="False" Binding="{Binding Password}" IsReadOnly="True" Width="*"/>
-                        <!--<DataGridTextColumn Header="Created" CanUserResize="False" Binding="{Binding Created}" IsReadOnly="True" Width="*"/>-->
+                        <DataGridTextColumn Header="Created" CanUserResize="False" Binding="{Binding Created,StringFormat='yyyy-MM-dd'}" IsReadOnly="True" Width="*"/>
 
                         <DataGridTemplateColumn Header="Action" CanUserResize="False" IsReadOnly="True" Width="*">
                             <DataGridTemplateColumn.CellTemplate>

@@ -160,7 +160,7 @@
 
 
 
-                            <Button x:Name="Settings" Style="{StaticResource menuButton}"  Margin="5"
+                            <!--<Button x:Name="Settings" Style="{StaticResource menuButton}"  Margin="5"
                                Cursor="Hand" 
                                Width="160"
                                Click="Settings_Click">
@@ -168,7 +168,7 @@
                                     <Icon:PackIconMaterial Kind="Cog" Style="{StaticResource menuButtonIcon}"/>
                                     <TextBlock Text="Settings"  FontFamily="Roboto"/>
                                 </StackPanel>
-                            </Button>
+                            </Button>-->
 
 
 

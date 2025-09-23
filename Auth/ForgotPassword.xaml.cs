@@ -126,12 +126,14 @@ namespace GYM_CLIENT.Auth
                 generatedOTP = random.Next(100000, 999999).ToString();
 
                 // Configure SMTP client
-                var smtpClient = new SmtpClient("alicantejannet5@gmail.com")
+                // Configure SMTP client
+                var smtpClient = new SmtpClient("smtp.gmail.com")
                 {
-                    Port = 587,
-                    Credentials = new NetworkCredential("alicantejannet5@gmail.com", "rsvx lqtn tgcq txps"),
+                    Port = 587, // Gmail uses 587 for TLS
+                    Credentials = new NetworkCredential("alicantejannet5@gmail.com", "rsvx lqtn tgcq txps"), // App password
                     EnableSsl = true,
                 };
+
 
                 // Create the email
                 var mailMessage = new MailMessage
@@ -185,6 +187,12 @@ namespace GYM_CLIENT.Auth
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             Disable();
+        }
+
+        private void OTP_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            HelperValidation.ValidationHelper.AllowOnlyNumbers(sender, e);
+
         }
     }
 }

@@ -28,13 +28,15 @@ namespace GYM_CLIENT.View.Admin
         private ClientService service = new ClientService();
         private readonly Connection connection = new Connection();
         private SqlConnection sqlConnection;
-
+        private CollectionViewSource collectionViewSource;
         public Client()
         {
             InitializeComponent();
 
             service = new ClientService();
             sqlConnection = new SqlConnection(connection.ConnectionString);
+            collectionViewSource = new CollectionViewSource();
+
             FetchAllClient();
         }
 
@@ -84,6 +86,7 @@ namespace GYM_CLIENT.View.Admin
                                     c.FullName,
                                     c.Contact,
                                     c.TrainerId,
+                                    c.Created,
                                     c.hasAccessCard,
                                     DATEDIFF(DAY, GETDATE(), c.PlanEnded) AS DaysLeft,
                                     t.Name AS TrainerName,
@@ -107,6 +110,7 @@ namespace GYM_CLIENT.View.Admin
                                 FullName = reader["FullName"].ToString(),
                                 Contact = reader["Contact"].ToString(),
                                 TraineeId = reader["TrainerId"].ToString(),
+                                Created = Convert.ToDateTime(reader["Created"]),
                                 hasAccessCard = reader["hasAccessCard"] != DBNull.Value && Convert.ToBoolean(reader["hasAccessCard"]),
                                 TraineeName = reader["TrainerName"].ToString(),
                                 PlanId = reader["PlanId"].ToString(),
@@ -118,8 +122,9 @@ namespace GYM_CLIENT.View.Admin
                            });
 
                         }
+                        collectionViewSource.Source = clientModels;
+                        Clients.ItemsSource = collectionViewSource.View;
 
-                        Clients.ItemsSource = clientModels;
                         reader.Close();
                         sqlConnection.Close();
 
@@ -189,7 +194,8 @@ namespace GYM_CLIENT.View.Admin
                     DataContext = selectedClient
                 };
 
-                //updateClient.clientUpdated += (s, e) => {
+                //updateClient.clientUpdated += (s, e) =>
+                //{
 
                 //    FetchAllClient();
                 //};
@@ -197,5 +203,37 @@ namespace GYM_CLIENT.View.Admin
                 updateClient.ShowDialog();
             }
         }
+
+        private void Search_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (collectionViewSource?.View != null)
+            {
+                collectionViewSource.View.Filter = item =>
+                {
+                    var client = item as ClientModel;
+                    if (client == null) return false;
+
+                    string searchText = Search.Text.Trim().ToLower();
+                    if (string.IsNullOrEmpty(searchText)) return true; 
+
+                    return
+                        (!string.IsNullOrEmpty(client.ClientId) && client.ClientId.ToLower().Contains(searchText)) ||
+                        (!string.IsNullOrEmpty(client.FullName) && client.FullName.ToLower().Contains(searchText)) ||
+                        (!string.IsNullOrEmpty(client.Contact) && client.Contact.ToLower().Contains(searchText)) ||
+                        (!string.IsNullOrEmpty(client.TraineeId) && client.TraineeId.ToLower().Contains(searchText)) ||
+                        (!string.IsNullOrEmpty(client.TraineeName) && client.TraineeName.ToLower().Contains(searchText)) ||
+                        (!string.IsNullOrEmpty(client.PlanId) && client.PlanId.ToLower().Contains(searchText)) ||
+                        (!string.IsNullOrEmpty(client.PlanName) && client.PlanName.ToLower().Contains(searchText)) ||
+                        (client.Price.HasValue && client.Price.Value.ToString().Contains(searchText)) ||
+                        (client.hasAccessCard.HasValue && client.hasAccessCard.Value.ToString().ToLower().Contains(searchText)) ||
+                        (!string.IsNullOrEmpty(client.CardNumber) && client.CardNumber.ToLower().Contains(searchText)) ||
+                        (client.IssuedDate.HasValue && client.IssuedDate.Value.ToString("yyyy-MM-dd").Contains(searchText)) ||
+                        (client.ExpiryDate.HasValue && client.ExpiryDate.Value.ToString("yyyy-MM-dd").Contains(searchText)) ||
+                        (client.Created.HasValue && client.Created.Value.ToString("yyyy-MM-dd").Contains(searchText)) ||
+                        (client.DaysLeft.HasValue && client.DaysLeft.Value.ToString().Contains(searchText));
+                };
+            }
+        }
+
     }
 }

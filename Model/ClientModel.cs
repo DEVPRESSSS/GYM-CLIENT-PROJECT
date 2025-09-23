@@ -20,6 +20,7 @@ namespace GYM_CLIENT.Model
             public string?  PlanName { get; set; }
             public Decimal?  Price { get; set; }
             public bool?  hasAccessCard { get; set; }
+            public DateTime?  Created { get; set; }
 
             //AccessCard
             public string? CardNumber { get; set; }

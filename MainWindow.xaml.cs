@@ -107,10 +107,7 @@ namespace GYM_CLIENT
 
         }
 
-        private void Settings_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+    
 
         private void Logout_Click(object sender, RoutedEventArgs e)
         {

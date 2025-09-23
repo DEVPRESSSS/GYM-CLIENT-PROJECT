@@ -27,6 +27,8 @@ namespace GYM_CLIENT.View.Admin.Forms
         private SqlConnection sqlConnection;
         private Bitmap currentBitmap;
         private string lastScannedCode = string.Empty;
+        public event EventHandler cardCreated;
+
         public CameraWindow()
         {
             InitializeComponent();
@@ -270,6 +272,7 @@ namespace GYM_CLIENT.View.Admin.Forms
                 {
 
                     MessageBox.Show("Client attendance recorded","Success",MessageBoxButton.OK,MessageBoxImage.Information);
+                    cardCreated?.Invoke(this, new EventArgs());
                     sqlConnection.Close();
 
                     return;

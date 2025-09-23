@@ -26,18 +26,23 @@ namespace GYM_CLIENT.View.Admin
     {
         private readonly Connection connection = new Connection();
         private SqlConnection sqlConnection;
+        private CollectionViewSource collectionViewSource;
 
-        public event EventHandler clientCreated;
         public Attendance()
         {
             InitializeComponent();
             sqlConnection = new SqlConnection(connection.ConnectionString);
-
+            collectionViewSource = new CollectionViewSource();
         }
 
         private void CameraBtn_Click(object sender, RoutedEventArgs e)
         {
             CameraWindow cameraWindow = new CameraWindow();
+            cameraWindow.cardCreated += (s, e) =>
+            {
+
+                FetchAttendance();
+            };
             cameraWindow.ShowDialog();
         }
 
@@ -86,5 +91,34 @@ namespace GYM_CLIENT.View.Admin
 
 
         }
+
+        private void ClientAttendance_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void Search_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (collectionViewSource?.View != null)
+            {
+                collectionViewSource.View.Filter = item =>
+                {
+                    var client = item as AttendanceModel;
+                    if (client == null) return false;
+
+                    string searchText = Search.Text.Trim().ToLower();
+                    if (string.IsNullOrEmpty(searchText)) return true; 
+
+                    return
+                        (!string.IsNullOrEmpty(client.ClientId) && client.ClientId.ToLower().Contains(searchText)) ||
+                        (!string.IsNullOrEmpty(client.FullName) && client.FullName.ToLower().Contains(searchText)) ||
+                        (client.CheckInTime.HasValue &&
+                         (client.CheckInTime.Value.ToString("yyyy-MM-dd HH:mm").ToLower().Contains(searchText) ||
+                          client.CheckInTime.Value.ToString("yyyy-MM-dd").ToLower().Contains(searchText) ||
+                          client.CheckInTime.Value.ToString("MM/dd/yyyy").ToLower().Contains(searchText)));
+                };
+            }
+        }
+
     }
 }

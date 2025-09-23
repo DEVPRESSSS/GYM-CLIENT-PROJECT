@@ -27,43 +27,64 @@
                Grid.Row="0">
 
                 <Grid>
+
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <!-- Left-aligned -->
-                        <ColumnDefinition Width="Auto" />
-                        <!-- Right-aligned -->
+
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="100"/>
+
                     </Grid.ColumnDefinitions>
 
+                    <Border Grid.Column="0">
 
-                    <!-- Right-aligned New Button -->
-                    <Button x:Name="CameraBtn"
-                       Style="{StaticResource CrudButton}"
-                       Cursor="Hand"
-                       Margin="0,0,10,0"
-                       Width="60"
-                       BorderThickness="0"
-                       Background="#0b8707"
-                       Grid.Column="1"
-                       Click="CameraBtn_Click"
-                       HorizontalAlignment="Right"
-                       >
+                        <Label Content="Search:" Height="30"
+                          FontSize="16"
+                          HorizontalAlignment="Right"
+                          Margin="4"/>
 
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                            <TextBlock Text="Scan" 
-                              VerticalAlignment="Center"
-                              Margin="0,0,5,0"
-                               Foreground="White"
-                              />
-                            <Icon:PackIconMaterial 
-                               x:Name="IconAdd"
-                               Kind="Camera" 
-                               Height="10"
-                               Width="10"
-                               Margin="0"
-                               Foreground="White"
-                               Style="{StaticResource WindowControlIcon}" />
-                        </StackPanel>
-                    </Button>
+                    </Border>
+
+                    <Border Grid.Column="1">
+
+                        <TextBox x:Name="Search" Height="30"
+                          MaxLength="15" 
+                          FontSize="16"
+                          TextChanged="Search_TextChanged"
+                          Margin="4"/>
+
+                    </Border>
+
+                    <Border Grid.Column="2">
+                        <Button x:Name="CameraBtn"
+                               Style="{StaticResource CrudButton}"
+                               Cursor="Hand"
+                               Margin="0,0,10,0"
+                               Width="90"
+                               BorderThickness="0"
+                               Background="#0b8707"
+                               Grid.Column="1"
+                               HorizontalAlignment="Right"
+                               Click="CameraBtn_Click">
+
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <TextBlock Text="New Client" 
+                                  VerticalAlignment="Center"
+                                   Margin="0,0,5,0"
+                                   Foreground="White"
+                                  />
+                                <Icon:PackIconMaterial 
+                                   x:Name="IconAdd"
+                                   Kind="Plus" 
+                                   Height="10"
+                                   Width="10"
+                                   Margin="0"
+                                   Foreground="White"
+                                   Style="{StaticResource WindowControlIcon}" />
+                            </StackPanel>
+                        </Button>
+
+                    </Border>
 
                 </Grid>
             </Border>
@@ -82,7 +103,7 @@
 
                         <DataGridTextColumn Header="ClientId" CanUserResize="False"  Binding="{Binding ClientId}" IsReadOnly="True" Width="*"/>
                         <DataGridTextColumn Header="Name" CanUserResize="False"  Binding="{Binding FullName}" IsReadOnly="True" Width="*"/>
-                        <DataGridTextColumn Header="CheckOutTime" CanUserResize="False"  Binding="{Binding CheckInTime}" IsReadOnly="True" Width="*"/>
+                        <DataGridTextColumn Header="CheckInTime" CanUserResize="False"  Binding="{Binding CheckInTime}" IsReadOnly="True" Width="*"/>
                 
                        
                     </DataGrid.Columns>

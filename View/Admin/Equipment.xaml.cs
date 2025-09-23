@@ -26,10 +26,13 @@ namespace GYM_CLIENT.View.Admin
     {
         private readonly Connection connection = new Connection();
         private SqlConnection sqlConnection;
+        private CollectionViewSource collectionViewSource;
         public Equipment()
         {
             InitializeComponent();
             sqlConnection = new SqlConnection(connection.ConnectionString);
+            collectionViewSource = new CollectionViewSource();
+
             FetchEquipment();
         }
 
@@ -147,8 +150,8 @@ namespace GYM_CLIENT.View.Admin
                     });
 
                 }
-
-                EquipmentDatagrid.ItemsSource = clientModels;
+                collectionViewSource.Source = clientModels;
+                EquipmentDatagrid.ItemsSource = collectionViewSource.View;
                 reader.Close();
                 sqlConnection.Close();
 
@@ -159,5 +162,30 @@ namespace GYM_CLIENT.View.Admin
 
             }
 }
+
+        private void Search_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (collectionViewSource?.View != null)
+            {
+                collectionViewSource.View.Filter = item =>
+                {
+                    var equipment = item as EquipmentModel;
+                    if (equipment == null) return false;
+
+                    string searchText = Search.Text.Trim().ToLower();
+                    if (string.IsNullOrEmpty(searchText)) return true; // show all if no search
+
+                    return
+                        (!string.IsNullOrEmpty(equipment.EquipmentId) && equipment.EquipmentId.ToLower().Contains(searchText)) ||
+                        (!string.IsNullOrEmpty(equipment.Name) && equipment.Name.ToLower().Contains(searchText)) ||
+                        (!string.IsNullOrEmpty(equipment.Quantity) && equipment.Quantity.ToLower().Contains(searchText)) ||
+                        (!string.IsNullOrEmpty(equipment.ImageUrl) && equipment.ImageUrl.ToLower().Contains(searchText)) ||
+                        (equipment.Created.HasValue && equipment.Created.Value.ToString("yyyy-MM-dd").Contains(searchText)) ||
+                        (equipment.IsAvailable.HasValue && equipment.IsAvailable.Value.ToString().ToLower().Contains(searchText)) ||
+                        (equipment.Created.HasValue && equipment.Created.Value.ToString("yyyy-MM-dd").Contains(searchText));
+                };
+            }
+        }
+
     }
 }
