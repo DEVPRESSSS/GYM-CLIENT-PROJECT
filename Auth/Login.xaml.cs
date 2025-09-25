@@ -1,4 +1,5 @@
 ﻿using GYM_CLIENT.DatabaseConnection;
+using GYM_CLIENT.View.Employee;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
@@ -211,9 +212,9 @@ namespace GYM_CLIENT.Auth
                             else
                             {
                                 //// Go to Cashier Window
-                                //CashierDashboard cashier = new CashierDashboard(user);
-                                //cashier.Show();
-                                //this.Close();
+                                MainWindowStaff cashier = new MainWindowStaff(user);
+                                cashier.Show();
+                                this.Close();
                             }
                         }
                         else

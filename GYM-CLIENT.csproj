@@ -12,6 +12,8 @@
   <ItemGroup>
     <None Remove="Resources\FormIcon.png" />
     <None Remove="Resources\logobg.png" />
+    <None Remove="Resources\LogoGym.jpg" />
+    <None Remove="Resources\LogoGym.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,6 +21,12 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\logobg.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\LogoGym.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\LogoGym.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

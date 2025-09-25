@@ -20,6 +20,7 @@ namespace GYM_CLIENT.View.Admin
     /// </summary>
     public partial class Dashboard : UserControl
     {
+
         public Dashboard()
         {
             InitializeComponent();

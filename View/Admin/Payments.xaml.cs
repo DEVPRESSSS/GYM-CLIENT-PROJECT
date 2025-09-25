@@ -1,5 +1,6 @@
 ﻿using GYM_CLIENT.DatabaseConnection;
 using GYM_CLIENT.Model;
+using GYM_CLIENT.Template;
 using GYM_CLIENT.View.Admin.Forms;
 using Microsoft.Data.SqlClient;
 using System;
@@ -46,7 +47,7 @@ namespace GYM_CLIENT.View.Admin
             paymentForm.paymentCreated += (s, e) =>
             {
 
-
+                FetchAllPayments();
             };
             paymentForm.ShowDialog();
         }
@@ -126,6 +127,16 @@ namespace GYM_CLIENT.View.Admin
                 };
             }
 
+        }
+
+        
+        private void ExportBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+            var listOfPayments = ClientsPayment.ItemsSource.Cast<PaymentModel>().ToList();
+
+            PaymentReport paymentReport = new PaymentReport(listOfPayments);
+            paymentReport.ShowDialog();
         }
     }
 }

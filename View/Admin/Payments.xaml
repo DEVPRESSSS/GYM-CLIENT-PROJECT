@@ -39,6 +39,26 @@
 
                     </Grid.ColumnDefinitions>
 
+                    <!-- Left-aligned Export Button -->
+                    <Button x:Name="ExportBtn"
+                        Style="{StaticResource CrudButton}"
+                        BorderBrush="Gray"
+                        Cursor="Hand"
+                        BorderThickness="0.5"
+                        Margin="10,0,0,0"
+                        Width="41"
+                        Grid.Column="0"
+                        Click="ExportBtn_Click"
+                        HorizontalAlignment="Left">
+                        <Icon:PackIconMaterial 
+                            x:Name="MaximizeWindow"
+                            Kind="Printer" 
+                            Height="10" 
+                            Width="12"
+                            Foreground="#313638"
+                            Style="{StaticResource WindowControlIcon}"
+                            Cursor="Hand" />
+                    </Button>
                     <Border Grid.Column="0">
 
                         <Label Content="Search:" Height="30"

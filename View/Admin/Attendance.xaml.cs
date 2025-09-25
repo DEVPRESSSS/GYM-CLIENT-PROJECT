@@ -33,6 +33,8 @@ namespace GYM_CLIENT.View.Admin
             InitializeComponent();
             sqlConnection = new SqlConnection(connection.ConnectionString);
             collectionViewSource = new CollectionViewSource();
+
+ 
         }
 
         private void CameraBtn_Click(object sender, RoutedEventArgs e)

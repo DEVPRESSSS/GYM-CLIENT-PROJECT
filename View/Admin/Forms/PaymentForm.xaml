@@ -120,8 +120,8 @@
 
 
                     <!--PlanName-->
-                    <Label Content="Membership Price"/>
-                    <TextBox x:Name="MembershipPrice" IsReadOnly="True" Style="{StaticResource TextBoxes}"
+                    <Label Content="Membership"/>
+                    <TextBox x:Name="Membership" IsReadOnly="True" Style="{StaticResource TextBoxes}"
                       MaxLength="6"
                       />
 

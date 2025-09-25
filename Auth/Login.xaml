@@ -122,7 +122,7 @@
 
                         <!--Logo -->
                         <Image Grid.Row="1"
-                            Source="D:\GYMMANAGEMENTSYSTEM\Resources\Images\logobg.png"
+                            Source="pack://application:,,,/Resources/LogoGym.png"
                             Width="100"
                             Height="100" RenderTransformOrigin="0.515,0.068" Margin="125,9,124,312"/>
 

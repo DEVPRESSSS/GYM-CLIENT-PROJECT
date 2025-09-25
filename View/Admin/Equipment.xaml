@@ -35,13 +35,14 @@
                         <ColumnDefinition Width="100"/>
 
                     </Grid.ColumnDefinitions>
+              
 
                     <Border Grid.Column="0">
 
                         <Label Content="Search:" Height="30"
-               FontSize="16"
-               HorizontalAlignment="Right"
-               Margin="4"/>
+                               FontSize="16"
+                               HorizontalAlignment="Right"
+                               Margin="4"/>
 
                     </Border>
 

@@ -144,7 +144,7 @@ namespace GYM_CLIENT.View.Admin
             if (selectedStaff != null)
             {
                 MessageBoxResult result = MessageBox.Show(
-                 "Are you sure you want to delete this product?",
+                 "Are you sure you want to delete this staff?",
                  "Confirmation",
                  MessageBoxButton.YesNo,
                  MessageBoxImage.Question);

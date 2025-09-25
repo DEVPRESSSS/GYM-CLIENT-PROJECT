@@ -16,6 +16,9 @@
     <Compile Update="Auth\Login.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Templates\PaymentReport.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\Admin\Attendance.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -67,6 +70,9 @@
     <Compile Update="View\Employee\Dashboard.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\Employee\MainWindowStaff.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Auth\ChangePassword.xaml">
@@ -79,6 +85,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Templates\PaymentReport.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\Admin\Attendance.xaml">
@@ -130,6 +139,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\Employee\Dashboard.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\Employee\MainWindowStaff.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

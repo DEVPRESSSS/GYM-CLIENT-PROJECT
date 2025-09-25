@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
 D:\ASP_PROJECTS\GYM-CLIENT\App.xaml
-21973751523
+23-625120017
 
-37-597058876
+391677897398
 2671440953271
-Auth\ChangePassword.xaml;Auth\ForgotPassword.xaml;Auth\Login.xaml;MainWindow.xaml;View\Admin\Attendance.xaml;View\Admin\Client.xaml;View\Admin\Dashboard.xaml;View\Admin\Equipment.xaml;View\Admin\Forms\AccessCardView.xaml;View\Admin\Forms\AddClient.xaml;View\Admin\Forms\AddEquipments.xaml;View\Admin\Forms\AddStaff.xaml;View\Admin\Forms\CameraWindow.xaml;View\Admin\Forms\PaymentForm.xaml;View\Admin\Forms\Plans.xaml;View\Admin\Forms\UpdateClient.xaml;View\Admin\Forms\UpdateEquipment.xaml;View\Admin\Forms\UpdateStaff.xaml;View\Admin\Payments.xaml;View\Admin\Staff.xaml;View\Employee\Dashboard.xaml;
+Auth\ChangePassword.xaml;Auth\ForgotPassword.xaml;Auth\Login.xaml;MainWindow.xaml;Templates\PaymentReport.xaml;View\Admin\Attendance.xaml;View\Admin\Client.xaml;View\Admin\Dashboard.xaml;View\Admin\Equipment.xaml;View\Admin\Forms\AccessCardView.xaml;View\Admin\Forms\AddClient.xaml;View\Admin\Forms\AddEquipments.xaml;View\Admin\Forms\AddStaff.xaml;View\Admin\Forms\CameraWindow.xaml;View\Admin\Forms\PaymentForm.xaml;View\Admin\Forms\Plans.xaml;View\Admin\Forms\UpdateClient.xaml;View\Admin\Forms\UpdateEquipment.xaml;View\Admin\Forms\UpdateStaff.xaml;View\Admin\Payments.xaml;View\Admin\Staff.xaml;View\Employee\Dashboard.xaml;View\Employee\MainWindowStaff.xaml;
 
 False
 

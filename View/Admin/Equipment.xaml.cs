@@ -1,5 +1,6 @@
 ﻿using GYM_CLIENT.DatabaseConnection;
 using GYM_CLIENT.Model;
+using GYM_CLIENT.Template;
 using GYM_CLIENT.View.Admin.Forms;
 using Microsoft.Data.SqlClient;
 using System;
@@ -93,7 +94,7 @@ namespace GYM_CLIENT.View.Admin
             {
 
                 MessageBoxResult result = MessageBox.Show(
-                  "Are you sure you want to delete this product?",
+                  "Are you sure you want to delete this equipment?",
                   "Confirmation",
                   MessageBoxButton.YesNo,
                   MessageBoxImage.Question);
@@ -122,11 +123,11 @@ namespace GYM_CLIENT.View.Admin
 
             }
         }
+        List<EquipmentModel> clientModels = new List<EquipmentModel>();
 
         private void FetchEquipment()
         {
 
-            var clientModels = new List<EquipmentModel>();
 
             string query = @"SELECT EquipmentId,Name,Stat,Quantity,ImageUrl,Created FROM Equipments";
             try
@@ -187,5 +188,14 @@ namespace GYM_CLIENT.View.Admin
             }
         }
 
+        private void ExportBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        //private void ExportBtn_Click_1(object sender, RoutedEventArgs e)
+        //{
+        //    //PaymentReport paymentReport = new PaymentReport(clientModels);
+        //    //paymentReport.ShowDialog();
+        //}
     }
 }

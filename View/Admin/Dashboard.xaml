@@ -201,51 +201,7 @@
         <Border Grid.Row="0"
          Background="White"
          Margin="0,294,0,0"
-         CornerRadius="4">
-
-            <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" x:Name="cashierDataGrid" Style="{DynamicResource DataGridStyle1}" Margin="0,24,0,0">
-                <DataGrid.Columns>
-
-                    <DataGridTextColumn Header="MemberID" IsReadOnly="True" CanUserResize="False" Width="*" />
-                    <DataGridTemplateColumn Header="Member" CanUserResize="False" IsReadOnly="True" Width="*">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <Border Width="25" Height="25" CornerRadius="50" Margin="0 0 10 0" Background="{Binding brush}">
-                                        <TextBlock Text="{Binding Character }" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Margin="0 0 0 1"/>
-                                    </Border>
-
-                                </StackPanel>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-
-                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" CanUserResize="False" IsReadOnly="True" Width="*"/>
-                    <DataGridTextColumn Header="Email" Binding="{Binding Email}" CanUserResize="False"  IsReadOnly="True" Width="*"/>
-                    <DataGridTextColumn Header="Contact" Binding="{Binding Contact}" CanUserResize="False"  IsReadOnly="True" Width="*"/>
-
-                    <DataGridTextColumn Header="Profile" CanUserResize="False"  IsReadOnly="True" Width="*"/>
-
-                    <DataGridTemplateColumn Header="Action" CanUserResize="False" IsReadOnly="True" Width="auto">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <Button Style="{StaticResource gridEditButton}">
-                                        <Icon:PackIconMaterial Kind="PencilOutline" Style="{StaticResource gridButtonIcon}"/>
-                                    </Button>
-                                    <Button Margin="5 0 0 0" Style="{StaticResource gridRemoveButton}" >
-                                        <Icon:PackIconMaterial Kind="DeleteOutline" Style="{StaticResource gridButtonIcon}"/>
-                                    </Button>
-                                </StackPanel>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                </DataGrid.Columns>
-            </DataGrid>
-
-
-
-        </Border>
+         CornerRadius="4"/>
 
 
 

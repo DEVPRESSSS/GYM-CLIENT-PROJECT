@@ -2,6 +2,7 @@
 using AForge.Video.DirectShow;
 using GYM_CLIENT.DatabaseConnection;
 using GYM_CLIENT.Model;
+using GYM_CLIENT.Services;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using ZXing;
+using static QRCoder.PayloadGenerator;
 using static QRCoder.PayloadGenerator.SwissQrCode;
 
 namespace GYM_CLIENT.View.Admin.Forms
@@ -38,12 +40,15 @@ namespace GYM_CLIENT.View.Admin.Forms
         private FilterInfoCollection videoDevices;
         private VideoCaptureDevice videoSource;
         private Bitmap currentBitmap;
+        private readonly ClientService _service;
+
         private string lastScannedCode = string.Empty;
 
         public PaymentForm()
         {
             InitializeComponent();
             sqlConnection = new SqlConnection(connection.ConnectionString);
+            _service = new ClientService();
 
         }
         private void StartCamera()
@@ -88,7 +93,7 @@ namespace GYM_CLIENT.View.Admin.Forms
                     {
                         ClientId = userInfo.ClientId;
 
-                        MembershipPrice.Text = userInfo.PlanName;
+                        Membership.Text = userInfo.PlanName;
                         ClientName.Text = userInfo.FullName;
                         priceOfPlan = userInfo.Price;
                         Amount.Text = userInfo.Price.ToString();
@@ -279,81 +284,108 @@ namespace GYM_CLIENT.View.Admin.Forms
 
         private void AddPayment()
         {
-
             string query = @"INSERT INTO Payments (PaymentId,ClientId,NonMemberClient,PaymentType,PlanName,AmountPaid,Changed)
-            VALUES(@PaymentId,@ClientId,@NonMemberClient,@PaymentType,@PlanName,@AmountPaid,@Changed)";
+                     VALUES(@PaymentId,@ClientId,@NonMemberClient,@PaymentType,@PlanName,@AmountPaid,@Changed)";
 
             if (!decimal.TryParse(Amount.Text, out decimal amountValue))
             {
                 MessageBox.Show("Please enter a valid numeric amount.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
-
                 return;
             }
 
             if (amountValue < priceOfPlan)
             {
                 MessageBox.Show("Entered amount is less than the plan price.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
-
                 return;
-
             }
-
 
             try
             {
-                sqlConnection.Open();
+                if (sqlConnection.State != System.Data.ConnectionState.Open) 
+                    sqlConnection.Open();
 
+                string? paymentType = PaymentType?.Text;
 
-                string? paymentType = PaymentType?.SelectedValue?.ToString();
-
-                if(paymentType!= null)
+                if (string.IsNullOrWhiteSpace(paymentType))
                 {
-
-                    using (SqlCommand cmd = new SqlCommand(query, sqlConnection))
-                    {
-
-                        cmd.Parameters.AddWithValue("@PaymentId", $"PAYMENT-{Guid.NewGuid().ToString().ToUpper().Substring(0, 10)}");
-                        if (!string.IsNullOrWhiteSpace(ClientId))
-                        {
-                            cmd.Parameters.AddWithValue("@ClientId", ClientId);
-                            cmd.Parameters.AddWithValue("@NonMemberClient", DBNull.Value);
-                        }
-                        else
-                        {
-                            cmd.Parameters.AddWithValue("@ClientId", DBNull.Value);
-                            cmd.Parameters.AddWithValue("@NonMemberClient", $"NON-MEMBER-{Guid.NewGuid().ToString().ToUpper().Substring(0, 10)}");
-                        }
-
-                        cmd.Parameters.AddWithValue("@PaymentType", paymentType);
-                        cmd.Parameters.AddWithValue("@PlanName", MembershipPrice.Text);
-                        cmd.Parameters.AddWithValue("@AmountPaid", amountValue); 
-                        cmd.Parameters.AddWithValue("@Changed",
-                            decimal.TryParse(Change.Text, out decimal changeValue) ? changeValue : 0m);
-
-
-                        int row = cmd.ExecuteNonQuery();
-
-                        if (row > 0)
-                        {
-                            MessageBox.Show("Payment created successfully", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-
-                            paymentCreated?.Invoke(this, new EventArgs());
-                            sqlConnection.Close();
-                            Clear();
-                            this.Close();
-
-                        }
-                    }
+                    MessageBox.Show("Please select a payment type.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
                 }
 
+                using (SqlCommand cmd = new SqlCommand(query, sqlConnection))
+                {
+                    cmd.Parameters.AddWithValue("@PaymentId", $"PAY-{Guid.NewGuid().ToString().ToUpper().Substring(0, 6)}");
+
+                    if (!string.IsNullOrWhiteSpace(ClientId))
+                    {
+                        cmd.Parameters.AddWithValue("@ClientId", ClientId);
+                        cmd.Parameters.AddWithValue("@NonMemberClient", DBNull.Value);
+                    }
+                    else
+                    {
+                        cmd.Parameters.AddWithValue("@ClientId", DBNull.Value);
+                        cmd.Parameters.AddWithValue("@NonMemberClient", $"NON-MEMBER-{Guid.NewGuid().ToString().ToUpper().Substring(0, 4)}");
+                    }
+
+                    cmd.Parameters.AddWithValue("@PaymentType", paymentType);
+                    cmd.Parameters.AddWithValue("@PlanName", Membership.Text);
+                    cmd.Parameters.AddWithValue("@AmountPaid", amountValue);
+                    cmd.Parameters.AddWithValue("@Changed",
+                        decimal.TryParse(Change.Text, out decimal changeValue) ? changeValue : 0m);
+
+                    int row = cmd.ExecuteNonQuery();
+
+                    if (row > 0)
+                    {
+                        MessageBox.Show("Payment created successfully", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                        paymentCreated?.Invoke(this, new EventArgs());
+
+                        //Renew Contract if client Id is not null and the Daysleft is 0
+                        if (!string.IsNullOrWhiteSpace(ClientId))
+                        {
+                            UpdateContract(ClientId);
+                        }
+                        Clear();
+                        this.Close();
+                    }
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error:{ex}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                sqlConnection.Close();
-
+                MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                if (sqlConnection.State == System.Data.ConnectionState.Open) 
+                    sqlConnection.Close();
             }
         }
+
+
+        private void UpdateContract(string? ClientId)
+        {
+            string query = "UPDATE Client SET PlanStarted = @PlanStarted, PlanEnded = @PlanEnded WHERE ClientId = @ClientId";
+
+            string? selectedPlanId = Membership.Text.ToLower();
+            string id = selectedPlanId == "yearly" ? "PLAN-101" : "PLAN-102";
+
+            var duration = _service.FetchDaysOfPlan(id);
+
+            using (SqlCommand cmd = new SqlCommand(query, sqlConnection)) // reuse existing open connection
+            {
+                cmd.Parameters.AddWithValue("@PlanStarted", DateTime.Now);
+                cmd.Parameters.AddWithValue("@PlanEnded", DateTime.Now.AddDays(duration));
+                cmd.Parameters.AddWithValue("@ClientId", ClientId);
+
+                int rows = cmd.ExecuteNonQuery();
+
+                if (rows > 0)
+                {
+                    this.Close();
+                }
+            }
+        }
+
 
         private void Clear()
         {
@@ -362,7 +394,7 @@ namespace GYM_CLIENT.View.Admin.Forms
             DaysleftTxt.Text = "";
             ClientName.Text = "";
             ClientId = "";
-            MembershipPrice.Text = "";
+            Membership.Text = "";
             priceOfPlan = 0;
         }
 

@@ -147,7 +147,7 @@ namespace GYM_CLIENT.View.Admin
             {
 
                 MessageBoxResult result = MessageBox.Show(
-                  "Are you sure you want to delete this product?",
+                  "Are you sure you want to delete this client?",
                   "Confirmation",
                   MessageBoxButton.YesNo,
                   MessageBoxImage.Question);
