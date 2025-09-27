@@ -43,7 +43,7 @@ namespace GYM_CLIENT.Auth
             if (Passwordtxt.Password.Length > 0)
             {
                 Eye.Visibility = Visibility.Visible;
-                PasswordErrorMessage.Text = "";
+                //PasswordErrorMessage.Text = "";
                 Passwordtxt.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#727272"));
                 Passwordtxt.BorderThickness = new Thickness(0, 0, 0, 2);
             }
@@ -72,7 +72,7 @@ namespace GYM_CLIENT.Auth
             if (Usernametxt.Text.Length > 0)
             {
 
-                UsernameErrorMessage.Text = "";
+                //UsernameErrorMessage.Text = "";
                 Usernametxt.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#727272"));
                 Usernametxt.BorderThickness = new Thickness(0, 0, 0, 2);
 
@@ -232,5 +232,34 @@ namespace GYM_CLIENT.Auth
             }
         }
 
+        private void MinimizeBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (WindowState == WindowState.Normal)
+            {
+
+                WindowState = WindowState.Minimized;
+            }
+            else
+            {
+
+                WindowState = WindowState.Normal;
+
+            }
+        }
+
+        private void MaximizeBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (WindowState == WindowState.Normal)
+            {
+                WindowState = WindowState.Maximized;
+
+            }
+            else
+            {
+
+                WindowState = WindowState.Normal;
+
+            }
+        }
     }
 }

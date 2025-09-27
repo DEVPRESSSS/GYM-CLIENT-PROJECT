@@ -14,6 +14,8 @@
         AllowsTransparency="True"
         ResizeMode="NoResize"
         MouseDown="Window_MouseDown">
+
+
     <!--First border-->
     <Border  Background="Transparent">
 
@@ -28,20 +30,10 @@
 
                 <Grid.RowDefinitions>
 
-
-
-                    <!--First row that holds the min,max,close button (columns)-->
-
-
-                    <!--Second row-->
                     <RowDefinition/>
 
                 </Grid.RowDefinitions>
 
-
-
-
-                <!--Grid for second row-->
                 <Grid Grid.Row="0">
 
                     <!--Grid for column definition-->
@@ -49,7 +41,6 @@
 
                         <!--First column-->
                         <ColumnDefinition />
-
                         <!--Second column-->
                         <ColumnDefinition/>
 
@@ -59,8 +50,6 @@
                     <!--Grid for the column 1-->
                     <Grid Grid.Row="0" Grid.Column="1">
 
-
-
                         <Grid.RowDefinitions>
 
                             <!--Row that holds the the three columns-->
@@ -69,14 +58,7 @@
 
                         </Grid.RowDefinitions>
 
-                        <!--Border for the row 1-->
-                        <Border BorderBrush="Black" 
-                             Grid.Row="0"
-                             >
-
-                        </Border>
-
-
+                        <!--Grid for windowstyle-->
                         <Grid>
 
 
@@ -86,20 +68,61 @@
                                 <!--Minimize button column-->
                                 <ColumnDefinition/>
 
+                                <ColumnDefinition Width="30"/>
+
                                 <!--Maximize button column-->
-                                <ColumnDefinition/>
+                                <ColumnDefinition Width="30"/>
 
                                 <!--Close button column-->
-                                <ColumnDefinition/>
+                                <ColumnDefinition Width="30"/>
 
                             </Grid.ColumnDefinitions>
 
+                            <!--Minimize button -->
+                            <Button x:Name="MinimizeBtn"
+                                 Style="{StaticResource MinimizeButtonStyle}"
+                                 Grid.Column="1"
+                                 HorizontalAlignment="Right"
+                                 Margin="0,0,4,0"
+                                 Cursor="Hand"
+                                 Click="MinimizeBtn_Click">
+
+                                <Icon:PackIconMaterial 
+                                      Kind="Minus" 
+                                      VerticalAlignment="Center"
+                                      Height="10"
+                                      HorizontalAlignment="Right"
+                                      Width="16"
+                                    />
+
+                            </Button>
 
 
+                            <!--Maximize button-->
+                            <Button x:Name="MaximizeBtn"
+                                   Style="{StaticResource MinimizeButtonStyle}"
+                                   Grid.Column="2"
+                                   HorizontalAlignment="Right"
+                                   Margin="0,0,4,0"
+                                   Cursor="Hand"
+                                   Click="MaximizeBtn_Click">
 
+
+                                <Icon:PackIconMaterial 
+                                    Kind="WindowMaximize" 
+                                    VerticalAlignment="Center"
+                                    Height="10"
+                                    HorizontalAlignment="Right"
+                                    Width="16"
+                                />
+
+                            </Button>
+
+
+                            <!--Close Button-->
                             <Button x:Name="CloseBtn"
                                  Style="{StaticResource MinimizeButtonStyle}"
-                                 Grid.Column="2"
+                                 Grid.Column="3"
                                  HorizontalAlignment="Right"
                                  Margin="0,0,4,0"
                                  Cursor="Hand"
@@ -120,11 +143,185 @@
 
                         </Grid>
 
-                        <!--Logo -->
-                        <Image Grid.Row="1"
-                            Source="pack://application:,,,/Resources/LogoGym.png"
-                            Width="100"
-                            Height="100" RenderTransformOrigin="0.515,0.068" Margin="125,9,124,312"/>
+                        <Border Grid.Row="1" HorizontalAlignment="Center" Width="350">
+
+                            <Grid>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="150*"/>
+                                    <RowDefinition Height="300*"/>
+                                </Grid.RowDefinitions>
+
+                                <!--Border for row 0-->
+                                <Border Grid.Row="0" Height="140" VerticalAlignment="Bottom">
+
+                                    <StackPanel Orientation="Vertical">
+
+                                        <!--Logo-->
+                                        <Image Grid.Row="1"
+                                            Source="pack://application:,,,/Resources/LogoGym.png"
+                                            Width="100"
+                                            RenderTransformOrigin="0.515,0.068"
+                                            Margin="125,9,124,0" Height="100"
+                                            VerticalAlignment="Top"
+                                             />
+
+                                        <!--Welcome message-->
+                                        <TextBlock Grid.Row="1"
+                                             Text="Welcome"
+                                             FontWeight="DemiBold" 
+                                             HorizontalAlignment="Center" 
+                                             Width="52"
+                                              />
+                                    </StackPanel>
+
+                                </Border>
+
+                                <!--Username and password-->
+                                <Grid Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+
+                                        <ColumnDefinition Width="50"/>
+                                        <ColumnDefinition Width="30"/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="40"/>
+                                    </Grid.ColumnDefinitions>
+
+
+                                    <!--Textboxes and button-->
+                                    <Border Grid.Column="2">
+
+                                        <StackPanel Orientation="Vertical">
+
+                                            <TextBox x:Name="Usernametxt" 
+                                                Grid.Column="2"
+                                                Style="{StaticResource TextBoxes}" 
+                                                MaxLength="30"
+                                                Margin="0,20,0,0"
+                                                BorderBrush="#727272" 
+                                                TextChanged="Usernametxt_TextChanged"
+                                                PreviewTextInput="Usernametxt_PreviewTextInput"
+                                                PreviewKeyDown="Usernametxt_PreviewKeyDown" 
+                                             />
+
+
+
+                                            <!--Passwordbox-->
+                                            <PasswordBox x:Name="Passwordtxt" 
+                                               Style="{StaticResource PasswordBoxes}" 
+                                               MaxLength="20"
+                                               Grid.Column="2"
+                                               Margin="0,20,0,0"
+                                               BorderBrush="#727272" 
+                                               PasswordChanged="Passwordtxt_PasswordChanged"
+                                               PreviewTextInput="Passwordtxt_PreviewTextInput"
+                                               PreviewKeyDown="Passwordtxt_PreviewKeyDown"
+                                               />
+
+
+                                            <!--Show password toggle-->
+                                            <Icon:PackIconMaterial x:Name="Eye" Kind="Eye"
+                                                     Grid.Column="1" 
+                                                     RenderTransformOrigin="4,1.875"
+                                                     Height="8" 
+                                                     Width="16"
+                                                     Margin="0,-13,0,0"
+                                                     MouseDown="Eye_MouseDown"
+                                                     Visibility="Hidden"
+                                                     HorizontalAlignment="Right"
+                     
+                                                 />
+                                            <Icon:PackIconMaterial x:Name="Eye2" 
+                                                Kind="EyeOff"
+                                                Height="10" 
+                                                Width="18"
+                                                Margin="0,-13,0,0"
+                                                MouseDown="Eye2_MouseDown"
+                                                HorizontalAlignment="Right"
+                                                Visibility="Collapsed"
+                                             />
+
+
+                                            <!--Password textbox-->
+                                            <TextBox x:Name="PasswordUnmask" 
+                                                  Style="{StaticResource TextBoxes}" 
+                                                  MaxLength="20"
+                                                  Grid.Column="2"
+                                                  Margin="0,-26,0,0"
+                                                  Visibility="Collapsed"
+                                                  BorderBrush="#727272" 
+                                                  TextChanged="PasswordUnmask_TextChanged"
+                                                />
+
+                                            <!--Forgot password link-->
+                                            <Label x:Name="forgotpassword" 
+                                                     Content="forgot password"
+                                                     FontSize="9"                       
+                                                     FontStyle="Italic"         
+                                                     Margin="0,0,0,0"                                       
+                                                     HorizontalContentAlignment="Right"
+                                                     MouseDown="forgotpassword_MouseDown" 
+                                                     HorizontalAlignment="Right" 
+                                                     Width="75" Height="25"
+                                             />
+
+                                            <!--Login button-->
+                                            <Button x:Name="LoginBtn" 
+                                                     Style="{StaticResource SubmitButton}"                                                      
+                                                     Width="NaN"
+                                                     Margin="0,0,0,0"
+                                                     Content="Login"
+                                                     Cursor="Hand"
+                                                     BorderThickness="0"
+                                                     Click="LoginBtn_Click"
+                                                    HorizontalAlignment="Stretch"
+                                             />
+
+
+
+
+
+
+
+                                        </StackPanel>
+
+                                    </Border>
+
+                                    <!--Icons for each textbox-->
+                                    <Border Grid.Column="1">
+
+                                        <StackPanel Orientation="Vertical">
+
+                                            <!-- Icon in username -->
+                                            <Icon:PackIconMaterial Kind="Account" 
+                                                 Grid.Column="1"
+                                                 VerticalAlignment="Stretch" 
+                                                 Margin="0,30,2,0"
+                                                 HorizontalAlignment="Right"
+                                                 Width="16"/>
+
+                                            <!-- Icon in passwordbox -->
+                                            <Icon:PackIconMaterial Kind="Lock"
+                                                Grid.Column="1" 
+                                                Margin="0,28,2,0"
+                                                VerticalAlignment="Stretch"
+                                                HorizontalAlignment="Right"
+                                                Width="16"/>
+
+                                        </StackPanel>
+
+                                    </Border>
+
+
+
+
+                                </Grid>
+
+                            </Grid>
+
+
+
+                        </Border>
 
 
 
@@ -134,126 +331,18 @@
 
                     <!--Image for the first column of row 2-->
                     <Image Grid.Row="1"
-                    Grid.Column="0"
-                    HorizontalAlignment="Left" Stretch="Fill"
-                    Source="D:\GYMMANAGEMENTSYSTEM\Resources\Images\cbum.png"/>
-
-
-                    <TextBlock Grid.Column="1"
-                            Text="Welcome" 
-                            Height="20"
-                            Margin="150,142,144,289"
-                            FontWeight="DemiBold"/>
-
-                    <!--Username textbox-->
-
-                    <TextBox x:Name="Usernametxt" 
-                          Grid.Column="1"
-                          Style="{StaticResource TextBoxes}" 
-                          Margin="80,213,73,213"
-                          MaxLength="30"
-                          BorderBrush="#727272" 
-                          TextChanged="Usernametxt_TextChanged"
-                           PreviewTextInput="Usernametxt_PreviewTextInput"
-                           PreviewKeyDown="Usernametxt_PreviewKeyDown"
-                          />
-
-                    <!--Error message textblock in username-->
-
-                    <TextBlock x:Name="UsernameErrorMessage"
-                      Grid.Column="1"
-                      Width="100"
-                      Margin="134,239,115,200"
-                      Foreground="Red"
-                      FontSize="8"
-                       />
-
-                    <!-- Icon in username -->
-
-                    <Icon:PackIconMaterial Kind="Account" Margin="60,222,0,0" Grid.Column="1"/>
-
-
-                    <!--Passwordbox-->
-
-
-                    <PasswordBox x:Name="Passwordtxt" Grid.Column="1" 
-                              Style="{StaticResource PasswordBoxes}" 
-                              Margin="80,265,73,161"
-                              MaxLength="20"
-                              BorderBrush="#727272" 
-                              PasswordChanged="Passwordtxt_PasswordChanged"
-                              PreviewTextInput="Passwordtxt_PreviewTextInput"
-                              PreviewKeyDown="Passwordtxt_PreviewKeyDown"
-                              />
-
-                    <!--Error message textblock in password-->
-
-                    <TextBlock x:Name="PasswordErrorMessage"
-                      Grid.Column="1"
-                      Margin="134,291,115,148"
-                      Foreground="Red"
-                      FontSize="8"
-                       />
+                        Grid.Column="0"
+                        HorizontalAlignment="Left" Stretch="Fill"
+                        Source="pack://application:,,,/Resources/cbum.png"/>
 
 
 
-                    <!--Password textbox-->
-
-                    <TextBox x:Name="PasswordUnmask" 
-                   Grid.Column="1"
-                   Style="{StaticResource TextBoxes}" 
-                   Margin="80,265,73,161"
-                   MaxLength="20"
-                   Visibility="Collapsed"
-                   BorderBrush="#727272" 
-                          TextChanged="PasswordUnmask_TextChanged"
-
-                   />
-
-                    <!-- Icon in username -->
-
-                    <Icon:PackIconMaterial Kind="Lock" Margin="60,274,0,0" Grid.Column="1"/>
-
-                    <Icon:PackIconMaterial x:Name="Eye" Kind="Eye" Margin="260,274,0,0" Grid.Column="1" 
-                                        RenderTransformOrigin="4,1.875"
-                                        Height="8" 
-                                        Width="16"
-                                        MouseDown="Eye_MouseDown"
-                                        Visibility="Hidden"
-                                         
-                                        />
 
 
 
-                    <Icon:PackIconMaterial x:Name="Eye2" Kind="EyeOff" Margin="258,274,0,0" Grid.Column="1" 
-                        RenderTransformOrigin="4,1.875"
-                        Height="10" 
-                        Width="18"
-                        MouseDown="Eye2_MouseDown"
-                        Visibility="Collapsed"
-                        />
-
-                    <Label x:Name="forgotpassword" 
-                        Content="forgot password"
-                        FontSize="9"                       
-                        FontStyle="Italic" Grid.Column="1" 
-                        Margin="204,291,68,135"
-                        HorizontalContentAlignment="Right"
-                        MouseDown="forgotpassword_MouseDown"
-                        />
 
 
-                    <!--Login button-->
 
-                    <Button x:Name="LoginBtn" Grid.Column="1" 
-                             Style="{StaticResource SubmitButton}" 
-                             Margin="0,321,73,105" 
-                             Width="196"
-                             Content="Login"
-                             Cursor="Hand"
-                             BorderThickness="0"
-                             Click="LoginBtn_Click"
-                         />
 
 
 

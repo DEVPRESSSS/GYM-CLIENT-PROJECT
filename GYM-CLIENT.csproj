@@ -10,6 +10,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\cbum.png" />
+    <None Remove="Resources\ChangePassIcon.png" />
+    <None Remove="Resources\forgotpassicon.png" />
     <None Remove="Resources\FormIcon.png" />
     <None Remove="Resources\logobg.png" />
     <None Remove="Resources\LogoGym.jpg" />
@@ -17,6 +20,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\cbum.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\ChangePassIcon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\forgotpassicon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\FormIcon.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
