@@ -194,5 +194,37 @@ namespace GYM_CLIENT.Auth
             HelperValidation.ValidationHelper.AllowOnlyNumbers(sender, e);
 
         }
+
+
+        private void MaximizeBtn_Click_1(object sender, RoutedEventArgs e)
+        {
+            if (WindowState == WindowState.Normal)
+            {
+                WindowState = WindowState.Maximized;
+
+            }
+            else
+            {
+
+                WindowState = WindowState.Normal;
+
+            }
+        }
+
+        private void MinimizeBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (WindowState == WindowState.Normal)
+            {
+
+                WindowState = WindowState.Minimized;
+            }
+            else
+            {
+
+                WindowState = WindowState.Normal;
+
+            }
+
+        }
     }
 }

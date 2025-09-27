@@ -103,5 +103,40 @@ namespace GYM_CLIENT.Auth
             forgotPassword.Show();
             this.Close();
         }
+
+        private void FirstPassword_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void MaximizeBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (WindowState == WindowState.Normal)
+            {
+                WindowState = WindowState.Maximized;
+
+            }
+            else
+            {
+
+                WindowState = WindowState.Normal;
+
+            }
+        }
+
+        private void MinimizeBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (WindowState == WindowState.Normal)
+            {
+
+                WindowState = WindowState.Minimized;
+            }
+            else
+            {
+
+                WindowState = WindowState.Normal;
+
+            }
+        }
     }
 }
