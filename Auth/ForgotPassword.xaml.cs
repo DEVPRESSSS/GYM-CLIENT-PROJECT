@@ -39,28 +39,31 @@ namespace GYM_CLIENT.Auth
         private void SendOTP_Click(object sender, RoutedEventArgs e)
         {
 
-            if (string.IsNullOrWhiteSpace(OTP.Text))
-            {
-                MessageBox.Show("Please enter the OTP.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
+            //if (string.IsNullOrWhiteSpace(OTP.Text))
+            //{
+            //    MessageBox.Show("Please enter the OTP.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            //    return;
+            //}
 
-            if (OTP.Text == generatedOTP)
-            {
-                MessageBox.Show("OTP verified successfully! You may now reset your password.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                var changePassword = new ChangePassword(email);
-                changePassword.Show();
+            //if (OTP.Text == generatedOTP)
+            //{
+            //    MessageBox.Show("OTP verified successfully! You may now reset your password.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            //    var changePassword = new ChangePassword(email);
+            //    changePassword.Show();
 
-                this.Close();
+            //    this.Close();
 
-            }
-            else
-            {
-                MessageBox.Show("Invalid OTP. Please try again.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                OTP.Text = "";
-            }
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Invalid OTP. Please try again.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            //    OTP.Text = "";
+            //}
+            var changePassword = new ChangePassword(email);
+            changePassword.Show();
 
-            
+            this.Close();
+
 
         }
         private void Disable()
